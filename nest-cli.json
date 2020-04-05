@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/auth-nest-monorepo/src",
+  "monorepo": true,
+  "root": "apps/auth-nest-monorepo",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/auth-nest-monorepo/tsconfig.app.json"
+  },
+  "projects": {
+    "auth": {
+      "type": "application",
+      "root": "apps/auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
+      }
+    },
+    "user": {
+      "type": "library",
+      "root": "libs/user",
+      "entryFile": "index",
+      "sourceRoot": "libs/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user/tsconfig.lib.json"
+      }
+    },
+    "jwt-access-token": {
+      "type": "library",
+      "root": "libs/jwt-access-token",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt-access-token/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt-access-token/tsconfig.lib.json"
+      }
+    },
+    "jwt-refresh-token": {
+      "type": "library",
+      "root": "libs/jwt-refresh-token",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt-refresh-token/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt-refresh-token/tsconfig.lib.json"
+      }
+    }
+  }
+}

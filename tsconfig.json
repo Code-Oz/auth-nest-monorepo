@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@app/user": [
+        "libs/user/src"
+      ],
+      "@app/user/*": [
+        "libs/user/src/*"
+      ],
+      "@app/jwt-access-token": [
+        "libs/jwt-access-token/src"
+      ],
+      "@app/jwt-access-token/*": [
+        "libs/jwt-access-token/src/*"
+      ],
+      "@app/jwt-refresh-token": [
+        "libs/jwt-refresh-token/src"
+      ],
+      "@app/jwt-refresh-token/*": [
+        "libs/jwt-refresh-token/src/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

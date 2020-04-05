@@ -1,0 +1,95 @@
+
+`/register`
+```mermaid
+sequenceDiagram
+
+    participant AuthController
+        AuthController->>AuthService: /register
+        alt wrong format
+            AuthService->>AuthController: Error
+        end
+
+    participant AuthService
+        AuthService->>UserDatabaseService: check if user exist in DB
+        activate UserDatabaseService
+        alt user already exist
+            UserDatabaseService->>AuthService: Error
+            deactivate UserDatabaseService
+            AuthService->>AuthController: Error
+        end
+
+        AuthService->>TokenDatabaseService: check if refresh token exist for this user
+        activate TokenDatabaseService
+        alt token already exist
+            TokenDatabaseService->>AuthService: Error
+            deactivate TokenDatabaseService
+            AuthService->>AuthController: Error
+        end
+
+        AuthService->>UserDatabaseService: Save user in DB
+
+        JwtRefreshTokenProvider->>AuthService: Generate Refresh token for user
+        JwtAccessTokenProvider->>AuthService: Generate Access token for user
+
+        AuthService->>TokenDatabaseService: Save refresh token in DB
+        AuthService->>AuthController: Return refresh & access token
+        
+
+    participant UserDatabaseService
+    participant TokenDatabaseService
+
+    participant JwtRefreshTokenProvider
+    participant JwtAccessTokenProvider
+```
+
+Module architecture
+
+
+```mermaid
+graph TB
+
+    subgraph AccessTokenModuleSubgraph
+        AccessTokenModule-->JwtAccessTokenProvider
+        AccessTokenModule-->JwtAccessTokenStrategy
+    end
+        AccessTokenModule-.->JwtService
+
+    subgraph RefreshTokenModuleSubgraph
+        RefreshTokenModule-->JwtRefreshTokenProvider
+        RefreshTokenModule-->JwtRefreshTokenStrategy
+        RefreshTokenModule-->JwtRefreshDatabaseService
+    end
+        RefreshTokenModule-.->MongoService
+        RefreshTokenModule-.->JwtService
+
+    subgraph UserModuleSubgraph
+        UserModule-->UserDatabaseService
+    end
+        UserModule-.->MongoService
+
+    subgraph AuthModuleSubgraph
+        AuthController-->AuthService
+        AuthService-->AccessTokenModule
+        AuthService-->RefreshTokenModule
+        AuthService-->UserModule
+    end
+```
+
+## TokenProvider
+
+Use JwtService to generate token from secret key from module.
+
+## TokenStrategy
+
+Use JwtService to check the validity of token from secret key from module.
+It's use thanks to @UseGuards(AuthGuard("name of strategy"))
+Don't forget to name strategy.
+
+## DatabaseService
+
+Layer between Business logic and database.
+
+## AuthService
+
+User logic. Check is user credential are available.
+
