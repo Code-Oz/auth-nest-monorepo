@@ -11,10 +11,10 @@ export class AuthController {
 
   @Post("register")
   @UseFilters(ClassValidationExceptionFilter)
-  register(
+  async register(
     @Body() userConnectionDto: UserConnectionDto,
-  ): object {
-    return this.appService.register(userConnectionDto)
+  ): Promise<object> {
+    return await this.appService.register(userConnectionDto)
   }
 
   @Get("hello")

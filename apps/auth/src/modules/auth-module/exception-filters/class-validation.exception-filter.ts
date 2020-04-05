@@ -7,16 +7,18 @@ export class ClassValidationExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
     const request = ctx.getRequest<Request>()
-    const status = exception.getStatus()
+    const method = request.method
     const message = exception.message
+    const status = exception.getStatus()
 
     response
       .status(status)
       .json({
         statusCode: status,
-        timestamp: new Date().toISOString(),
         path: request.url,
+        method,
         message: this.formatingErrorMessage(message),
+        timestamp: new Date().toISOString(),
       })
   }
 
