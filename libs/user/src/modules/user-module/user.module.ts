@@ -10,7 +10,9 @@ import { USERS_COLLECTION } from "./types/collection.types"
     MongooseModule.forRoot("mongodb://localhost/nest"),
     MongooseModule.forFeature([{ name: USERS_COLLECTION, schema: UserSchema }]),
   ],
-  providers: [ UserService ],
+  providers: [
+    UserService,
+  ],
   exports: [ UserService ],
 })
 export class UserModule {}

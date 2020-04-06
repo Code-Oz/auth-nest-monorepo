@@ -70,7 +70,9 @@
       "@app/jwt-access-token/(.*)": "<rootDir>/libs/jwt-access-token/src/$1",
       "@app/jwt-access-token": "<rootDir>/libs/jwt-access-token/src",
       "@app/jwt-refresh-token/(.*)": "<rootDir>/libs/jwt-refresh-token/src/$1",
-      "@app/jwt-refresh-token": "<rootDir>/libs/jwt-refresh-token/src"
+      "@app/jwt-refresh-token": "<rootDir>/libs/jwt-refresh-token/src",
+      "@app/lib-global-nest/(.*)": "<rootDir>/libs/lib-global-nest/src/$1",
+      "@app/lib-global-nest": "<rootDir>/libs/lib-global-nest/src"
     }
   }
 }

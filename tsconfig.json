@@ -28,6 +28,12 @@
       ],
       "@app/jwt-refresh-token/*": [
         "libs/jwt-refresh-token/src/*"
+      ],
+      "@app/lib-global-nest": [
+        "libs/lib-global-nest/src"
+      ],
+      "@app/lib-global-nest/*": [
+        "libs/lib-global-nest/src/*"
       ]
     }
   },

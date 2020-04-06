@@ -1,16 +1,20 @@
+import { Model } from "mongoose"
+
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
-import { Model } from "mongoose"
-import { UserDocument } from "../schemas/user.schema"
+
+import { UserCreationDto, UserDocument } from "../schemas/user.schema"
 import { USERS_COLLECTION } from "../types/collection.types"
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>) {}
+    constructor(
+        @InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>,
+    ) {}
 
-    async create(user: UserDocument): Promise<void> {
-      const createdUser = new this.userModel(user)
-      await createdUser.save()
+    async createUser(user: UserCreationDto): Promise<void> {
+        const createdUser = new this.userModel(user)
+        await createdUser.save()
     }
 
     async isExistUser(email: string): Promise<boolean> {

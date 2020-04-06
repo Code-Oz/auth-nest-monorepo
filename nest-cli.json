@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/jwt-refresh-token/tsconfig.lib.json"
       }
+    },
+    "lib-global-nest": {
+      "type": "library",
+      "root": "libs/lib-global-nest",
+      "entryFile": "index",
+      "sourceRoot": "libs/lib-global-nest/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/lib-global-nest/tsconfig.lib.json"
+      }
     }
   }
 }

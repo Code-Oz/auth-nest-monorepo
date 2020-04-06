@@ -1,5 +1,6 @@
 import { Injectable, HttpException } from "@nestjs/common"
 import { JwtAccessTokenProvider } from "@app/jwt-access-token"
+
 import { UserConnectionDto } from "../validations/user-connection"
 import { UserService } from "@app/user"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"
@@ -16,12 +17,13 @@ export class AuthService {
   }
 
   async register(userConnectionDto: UserConnectionDto): Promise<object> {
-    const { email } = userConnectionDto
+    const { email, password } = userConnectionDto
     const isExistingUser = await this.userService.isExistUser(email)
 
     if (isExistingUser) {
       throw new UserAlreadyExistException()
     }
+    await this.userService.createUser({ email, password })
 
     return this.jwtAccessTokenProvider.provideAccessToken({ toto: "ok" })
   }
