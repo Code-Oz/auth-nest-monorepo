@@ -9,7 +9,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>()
     const method = request.method
     const status = exception.getStatus()
-    const message = exception.message
+    const message = exception.message.message
 
     response
       .status(status)
