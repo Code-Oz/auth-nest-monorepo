@@ -1,44 +1,74 @@
 
-`/register`
+POST `/register`
 ```mermaid
 sequenceDiagram
 
-    participant AuthController
-        AuthController->>AuthService: /register
-        alt wrong format
-            AuthService->>AuthController: Error
-        end
+    AuthController->>AuthService: /register
+    alt wrong format
+        AuthService->>AuthController: Error
+    end
 
-    participant AuthService
-        AuthService->>UserDatabaseService: check if user exist in DB
-        activate UserDatabaseService
-        alt user already exist
-            UserDatabaseService->>AuthService: Error
-            deactivate UserDatabaseService
-            AuthService->>AuthController: Error
-        end
+    AuthService->>UserDatabaseService: check if user exist in DB
+    activate UserDatabaseService
+    alt user already exist
+        UserDatabaseService->>AuthService: Error
+        deactivate UserDatabaseService
+        AuthService->>AuthController: Error
+    end
 
-        AuthService->>TokenDatabaseService: check if refresh token exist for this user
-        activate TokenDatabaseService
-        alt token already exist
-            TokenDatabaseService->>AuthService: Error
-            deactivate TokenDatabaseService
-            AuthService->>AuthController: Error
-        end
+    AuthService->>TokenDatabaseService: check if refresh token exist for this user
+    activate TokenDatabaseService
+    alt token already exist
+        TokenDatabaseService->>AuthService: Error
+        deactivate TokenDatabaseService
+        AuthService->>AuthController: Error
+    end
 
-        AuthService->>UserDatabaseService: Save user in DB
+    AuthService->>UserDatabaseService: Save user in DB
 
-        JwtRefreshTokenProvider->>AuthService: Generate Refresh token for user
-        JwtAccessTokenProvider->>AuthService: Generate Access token for user
+    JwtRefreshTokenProvider->>AuthService: Generate Refresh token for user
+    JwtAccessTokenProvider->>AuthService: Generate Access token for user
 
-        AuthService->>TokenDatabaseService: Save refresh token in DB
-        AuthService->>AuthController: Return refresh & access token
+    AuthService->>TokenDatabaseService: Save refresh token in DB
+    AuthService->>AuthController: Return refresh & access token
         
+    participant AuthController
+    participant AuthService
 
     participant UserDatabaseService
     participant TokenDatabaseService
 
     participant JwtRefreshTokenProvider
+    participant JwtAccessTokenProvider
+```
+
+
+POST `/access_token`
+
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthService: /access_token
+    alt invalid token
+        AuthService->>AuthController: Error
+    end
+
+    AuthService->>TokenDatabaseService: check if refresh token is available
+    activate TokenDatabaseService
+    alt token not available
+        TokenDatabaseService->>AuthService: Error
+        deactivate TokenDatabaseService
+        AuthService->>AuthController: Error
+    end
+
+    JwtAccessTokenProvider->>AuthService: Generate Access token for user
+
+    AuthService->>TokenDatabaseService: Save refresh token in DB
+    AuthService->>AuthController: Return refresh & access token
+        
+    participant AuthController
+    participant TokenDatabaseService
+
     participant JwtAccessTokenProvider
 ```
 

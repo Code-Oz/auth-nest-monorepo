@@ -1,10 +1,12 @@
 import { Controller, Get, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
 
-import { JwtAccessTokenAuthGuard } from "@app/jwt-access-token/modules/jwt-access-token-module/guards/jwt-access-token.guard"
 import { ClassValidationExceptionFilter } from "@app/lib-global-nest/exception-filters"
+import { JwtAccessTokenAuthGuard } from "@app/jwt-access-token/modules/jwt-access-token-module/guards/jwt-access-token.guard"
+import { JwtRefreshTokenAuthGuard } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/guards/jwt-access-token.guard"
 
 import { AuthService } from "../providers/auth.services"
 import { UserConnectionDto } from "../validations/user-connection"
+import { RefreshTokenDto } from "../validations/refresh-token"
 
 @Controller()
 export class AuthController {
@@ -12,10 +14,19 @@ export class AuthController {
 
   @Post("register")
   @UseFilters(ClassValidationExceptionFilter)
-  async register(
+  async postRegister(
     @Body() userConnectionDto: UserConnectionDto,
   ): Promise<object> {
     return await this.authService.register(userConnectionDto)
+  }
+
+  @Post("access_token")
+  @UseFilters(ClassValidationExceptionFilter)
+  @UseGuards(JwtRefreshTokenAuthGuard)
+  async postAccessToken(
+    @Body() refreshTokenDto: RefreshTokenDto,
+  ): Promise<object> {
+    return await this.authService.postAccessToken(refreshTokenDto.refreshToken)
   }
 
   @Get("hello")

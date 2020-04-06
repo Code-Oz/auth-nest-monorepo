@@ -1,8 +1,9 @@
-import { Injectable, HttpException } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 
 import { UserService } from "@app/user"
 import { JwtAccessTokenProvider } from "@app/jwt-access-token"
 import { JwtRefreshTokenProvider } from "@app/jwt-refresh-token"
+import { TokenNotAvailableException } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/custom-errors/token-not-available.exception"
 
 import { UserConnectionDto } from "../validations/user-connection"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"
@@ -50,6 +51,21 @@ export class AuthService {
     return {
       ...refreshToken,
       ...accessToken,
+    }
+  }
+
+  async postAccessToken(refreshToken: string): Promise<object> {
+    const { userId, userEmail } = this.jwtRefreshTokenProvider.decodeToken(refreshToken)
+    const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshToken, userId)
+
+    if (!isTokenAvailable) {
+      throw new TokenNotAvailableException()
+    }
+
+    const { access_token } = await this.jwtAccessTokenProvider.provideAccessToken({ userId, userEmail })
+    return {
+      access_token,
+      refresh_token: refreshToken,
     }
   }
 }

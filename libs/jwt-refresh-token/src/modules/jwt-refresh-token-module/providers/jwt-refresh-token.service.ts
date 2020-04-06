@@ -16,8 +16,8 @@ export class JwtRefreshTokenService {
         return await savedToken.save()
     }
 
-    async isTokenAvailable(userId: string): Promise<boolean> {
-        const token = await this.findTokenByUserId(userId)
+    async isTokenAvailable(refreshToken: string, userId: string): Promise<boolean> {
+        const token = await this.findTokenByUserId(refreshToken, userId)
         return token.isAvailable
     }
 
@@ -26,8 +26,12 @@ export class JwtRefreshTokenService {
         return !!token
     }
 
-    private async findTokenByUserId(userId: string): Promise<RefreshTokenDocument> {
-        return await this.tokenRefreshModel.findOne({ userId }).exec()
+    private async findTokensByUserId(userId: string): Promise<RefreshTokenDocument[]> {
+        return await this.tokenRefreshModel.find({ userId }).exec()
+    }
+
+    private async findTokenByUserId(refreshToken: string, userId: string): Promise<RefreshTokenDocument> {
+        return await this.tokenRefreshModel.findOne({ userId, refresh_token: refreshToken }).exec()
     }
 
     private async findTokenByEmail(email: string): Promise<RefreshTokenDocument> {

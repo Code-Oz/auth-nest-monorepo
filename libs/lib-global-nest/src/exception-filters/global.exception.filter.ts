@@ -9,7 +9,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>()
     const method = request.method
     const status = exception.getStatus()
-    const message = exception.message.message
+    const message = this.getMessage(exception.message)
 
     response
       .status(status)
@@ -17,8 +17,24 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         statusCode: status,
         path: request.url,
         method,
-        message,
+        ...message,
         timestamp: new Date().toISOString(),
       })
+  }
+
+  private getMessage(message: any): { message: string } | { error: string }{
+    if (!!message.message) {
+      return {
+        message: message.message,
+      }
+    }
+    if (!!message.error) {
+      return {
+        error: message.error,
+      }
+    }
+    return {
+      message,
+    }
   }
 }
