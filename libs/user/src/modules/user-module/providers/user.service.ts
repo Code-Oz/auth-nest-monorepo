@@ -12,9 +12,9 @@ export class UserService {
         @InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>,
     ) {}
 
-    async createUser(user: UserCreationDto): Promise<void> {
+    async createUser(user: UserCreationDto): Promise<UserDocument> {
         const createdUser = new this.userModel(user)
-        await createdUser.save()
+        return await createdUser.save()
     }
 
     async isExistUser(email: string): Promise<boolean> {
