@@ -17,7 +17,7 @@ export class AuthController {
   async postRegister(
     @Body() userConnectionDto: UserConnectionDto,
   ): Promise<object> {
-    return await this.authService.register(userConnectionDto)
+    return await this.authService.postRegister(userConnectionDto)
   }
 
   @Post("access_token")

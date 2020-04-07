@@ -43,7 +43,7 @@ sequenceDiagram
 ```
 
 
-POST `/access_token`
+PUT `/access_token`
 
 ```mermaid
 sequenceDiagram

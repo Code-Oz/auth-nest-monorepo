@@ -8,6 +8,7 @@ import { TokenNotAvailableException } from "@app/jwt-refresh-token/modules/jwt-r
 import { UserConnectionDto } from "../validations/user-connection"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"
 import { JwtRefreshTokenService } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
+import { ProvidersToken } from "../types/providers-token.type"
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
     return "Hello World!"
   }
 
-  async register(userConnectionDto: UserConnectionDto): Promise<object> {
+  async postRegister(userConnectionDto: UserConnectionDto): Promise<ProvidersToken> {
     const { email, password } = userConnectionDto
     const isExistingUser = await this.userService.isExistUser(email)
     const isTokenExist = await this.jwtRefreshTokenService.isTokenExist(email)
@@ -54,7 +55,7 @@ export class AuthService {
     }
   }
 
-  async postAccessToken(refreshToken: string): Promise<object> {
+  async postAccessToken(refreshToken: string): Promise<ProvidersToken> {
     const { userId, userEmail } = this.jwtRefreshTokenProvider.decodeToken(refreshToken)
     const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshToken, userId)
 
