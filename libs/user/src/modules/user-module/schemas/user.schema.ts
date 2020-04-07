@@ -1,5 +1,5 @@
 import { Schema, Document } from "mongoose"
-import { IsEmail, IsNotEmpty } from "class-validator"
+import { IsEmail, IsNotEmpty, MinLength } from "class-validator"
 
 export const UserSchema = new Schema({
   email: String,
@@ -16,6 +16,7 @@ export class UserCreationDto {
   email: string
 
   @IsNotEmpty()
+  @MinLength(6)
   password: string
 
 }

@@ -17,7 +17,7 @@ export class ClassValidationExceptionFilter implements ExceptionFilter {
         statusCode: status,
         path: request.url,
         method,
-        message: this.formatingErrorMessage(message),
+        errors: this.formatingErrorMessage(message),
         timestamp: new Date().toISOString(),
       })
   }
