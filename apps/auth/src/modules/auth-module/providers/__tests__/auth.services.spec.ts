@@ -64,7 +64,7 @@ describe("CatsController", () => {
         expect(resultFunction).toEqual(providersToken)
         done()
     })
-    it("should throw TokenNotAvailableException", async (done) => {
+    it("should throw UserAlreadyExistException", async (done) => {
         const exceptedError = "User already register"
         userService.isExistUser = async () => true
         try {
@@ -82,6 +82,30 @@ describe("CatsController", () => {
                 email: "toto@toto.fr",
                 password: "toto",
             })
+        } catch (e) {
+            expect(e.message).toBe(exceptedError)
+        }
+        done()
+    })
+  })
+
+  describe("postAccessToken", () => {
+    it("should return access and refresh token", async (done) => {
+        const resultFunction = await authService.postAccessToken("fakeTokenRefresh")
+
+        const providersToken: ProvidersToken = {
+            access_token: "fakeTokenAccess",
+            refresh_token: "fakeTokenRefresh",
+        }
+
+        expect(resultFunction).toEqual(providersToken)
+        done()
+    })
+    it("should throw TokenNotAvailableException", async (done) => {
+        const exceptedError = "Token is not available"
+        jwtRefreshTokenService.isTokenAvailable = async () => false
+        try {
+            await authService.postAccessToken("fakeTokenRefresh")
         } catch (e) {
             expect(e.message).toBe(exceptedError)
         }
