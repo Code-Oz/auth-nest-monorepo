@@ -10,6 +10,7 @@ import { AuthController } from "./controllers/auth.controller"
 import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
 import { AuthRegisterService } from "./providers/auth-register.service"
 import { AuthLoginService } from "./providers/auth-login.service"
+import { AuthLogoutService } from "./providers/auth-logout.service"
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthLoginService } from "./providers/auth-login.service"
     AuthRefreshTokenService,
     AuthRegisterService,
     AuthLoginService,
+    AuthLogoutService,
   ],
 })
 export class AuthModule {}

@@ -25,7 +25,7 @@ sequenceDiagram
     end
 
     AuthRegisterService->>UserDatabaseService: Save user in DB
-    AuthRegisterService->>AuthController: return response
+    AuthRegisterService->>AuthController: return response message
         
     participant AuthController
     participant AuthRegisterService
@@ -67,6 +67,7 @@ sequenceDiagram
 POST `/login`
 
 ```mermaid
+
 sequenceDiagram
 
     AuthController->>AuthLoginService: /login
@@ -103,6 +104,28 @@ sequenceDiagram
     participant JwtRefreshTokenProvider
     participant AuthLoginService
     
+```
+
+POST `/logout`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthLogoutService: /logout
+
+    alt invalid token
+        AuthLogoutService->>AuthController: Error
+    end
+    alt invalid format
+        AuthLogoutService->>AuthController: Error
+    end
+
+    alt token status is already unvailable
+        AuthLogoutService->>AuthController: Error
+        TokenDatabaseService->>AuthLogoutService: Error
+    end
+
+    AuthLogoutService->>TokenDatabaseService: Change status of token in db to unavailable
+    AuthLogoutService->>AuthController: return response message
 ```
 
 Module architecture

@@ -21,11 +21,7 @@ export class JwtRefreshTokenProvider {
         if (!this.isValidPayloadToken(payload)) {
             throw new WrongPayloadTokenException()
         }
-        const { userId, userEmail } = payload
-        return {
-            userId,
-            userEmail,
-        }
+        return payload
     }
 
     isValidPayloadToken(payload: string | { [key: string]: any }): payload is RefreshTokenPayload {

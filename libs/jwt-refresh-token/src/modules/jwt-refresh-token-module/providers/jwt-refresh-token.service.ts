@@ -31,6 +31,10 @@ export class JwtRefreshTokenService {
         await this.tokenRefreshModel.updateMany({ email }, { $set: { isAvailable: false } }).exec()
     }
 
+    async changeStatusToken(email: string, refreshToken: string): Promise<void> {
+        await this.tokenRefreshModel.updateOne({ email, refresh_token: refreshToken }, { $set: { isAvailable: false } }).exec()
+    }
+
     private async findTokensByEmail(email: string): Promise<RefreshTokenDocument[]> {
         return await this.tokenRefreshModel.find({ email }).exec()
     }

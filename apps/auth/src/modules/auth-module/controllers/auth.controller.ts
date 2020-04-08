@@ -10,6 +10,7 @@ import { ProvidersToken } from "../types/providers-token.type"
 import { AuthRefreshTokenService } from "../providers/auth-refresh-token.service"
 import { AuthRegisterService } from "../providers/auth-register.service"
 import { AuthLoginService } from "../providers/auth-login.service"
+import { AuthLogoutService } from "../providers/auth-logout.service"
 
 @Controller()
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
     private readonly authService: AuthRefreshTokenService,
     private readonly authRegisterService: AuthRegisterService,
     private readonly authLoginService: AuthLoginService,
+    private readonly authLogoutService: AuthLogoutService,
   ) {}
 
   @Post("register")
@@ -33,6 +35,15 @@ export class AuthController {
     @Body() userConnectionDto: UserConnectionDto,
   ): Promise<ProvidersToken> {
     return await this.authLoginService.postLogin(userConnectionDto)
+  }
+
+  @Post("logout")
+  @UseFilters(ClassValidationExceptionFilter)
+  @UseGuards(JwtRefreshTokenAuthGuard)
+  async postLogout(
+    @Body() refreshTokenDto: RefreshTokenDto,
+  ): Promise<{ message: string }> {
+    return await this.authLogoutService.postLogout(refreshTokenDto)
   }
 
   @Post("access_token")
