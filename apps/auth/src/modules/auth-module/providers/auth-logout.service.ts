@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common"
 
-import { JwtRefreshTokenService } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
-import { RefreshTokenDto } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/validations/refresh-token"
-import { JwtRefreshTokenProvider } from "@app/jwt-refresh-token"
+import { JwtRefreshTokenProvider, JwtRefreshTokenService, RefreshTokenDto } from "@app/jwt-refresh-token"
 import { UserWrongCredentialException } from "../custom-errors/user-wrong-credential.exception"
 
 @Injectable()

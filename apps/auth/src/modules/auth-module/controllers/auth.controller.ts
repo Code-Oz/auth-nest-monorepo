@@ -1,8 +1,7 @@
 import { Controller, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
 
 import { ClassValidationExceptionFilter } from "@app/lib-global-nest/exception-filters"
-import { JwtRefreshTokenAuthGuard } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/guards/jwt-access-token.guard"
-import { RefreshTokenDto } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/validations/refresh-token"
+import { JwtRefreshTokenAuthGuard, RefreshTokenDto } from "@app/jwt-refresh-token"
 
 import { UserConnectionDto } from "../validations/user-connection"
 import { UserRegisterDto } from "../validations/user-register"

@@ -1,16 +1,12 @@
 import { Injectable } from "@nestjs/common"
 
+import { UserService, UserCredentialService, UserDocument } from "@app/user"
 import { JwtAccessTokenProvider } from "@app/jwt-access-token"
-import { JwtRefreshTokenProvider } from "@app/jwt-refresh-token"
-import { RefreshTokenDocument } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/schemas/refresh-token.schema"
-import { JwtRefreshTokenService } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
-import { UserService } from "@app/user"
-import { UserCredentialService } from "@app/user/modules/user-module/providers/user-credential.service"
+import { JwtRefreshTokenProvider, JwtRefreshTokenService } from "@app/jwt-refresh-token"
 
 import { ProvidersToken } from "../types/providers-token.type"
 import { UserConnectionDto } from "../validations/user-connection"
 import { UserWrongCredentialException } from "../custom-errors/user-wrong-credential.exception"
-import { UserDocument } from "@app/user/modules/user-module/schemas/user.schema"
 
 @Injectable()
 export class AuthLoginService {
