@@ -69,33 +69,43 @@ POST `/login`
 ```mermaid
 sequenceDiagram
 
-    AuthController->>AuthService: /login
-    alt invalid token
-        AuthService->>AuthController: Error
+    AuthController->>AuthLoginService: /login
+
+    alt wrong format
+        AuthLoginService->>AuthController: Error
     end
 
-    AuthService->>TokenDatabaseService: check if refresh token is available
-    activate TokenDatabaseService
-    alt token not available
-        TokenDatabaseService->>AuthService: Error
-        deactivate TokenDatabaseService
-        AuthService->>AuthController: Error
+    alt user don't register in db 
+        UserDatabaseService->>AuthLoginService: Error
+        AuthLoginService->>AuthController: Error
     end
 
-    JwtAccessTokenProvider->>AuthService: Generate Access token for user
+    UserDatabaseService->>AuthLoginService: pick user (email & password)
 
-    AuthService->>TokenDatabaseService: Save refresh token in DB
-    AuthService->>AuthController: Return refresh & access token
-        
-    participant AuthController
-    participant TokenDatabaseService
+    alt wrong password
+        AuthLoginService->>AuthController: Error
+    end
 
+
+    AuthLoginService->>TokenDatabaseService: Change status of current refresh token
+
+    JwtRefreshTokenProvider->>AuthLoginService: Generate Refresh token for user
+    JwtAccessTokenProvider->>AuthLoginService: Generate Access token for user
+
+    AuthLoginService->>TokenDatabaseService: Save Refresh token in db
+
+    AuthLoginService->>AuthController: Return access and refresh token
+
+    participant UserDatabaseService
     participant JwtAccessTokenProvider
+    participant JwtRefreshTokenProvider
+    participant AuthLoginService
+    
 ```
 
 Module architecture
 
-
+// Change auth service
 ```mermaid
 graph TB
 
