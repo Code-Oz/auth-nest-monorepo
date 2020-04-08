@@ -45,12 +45,11 @@ describe("AuthRegister", () => {
             password: "toto",
         })
 
-        const providersToken: ProvidersToken = {
-            access_token: "fakeTokenAccess",
-            refresh_token: "fakeTokenRefresh",
+        const message = {
+            message: "User has been registered !",
         }
 
-        expect(resultFunction).toEqual(providersToken)
+        expect(resultFunction).toEqual(message)
         done()
     })
     it("should throw UserAlreadyExistException", async (done) => {

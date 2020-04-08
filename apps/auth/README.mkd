@@ -32,9 +32,6 @@ sequenceDiagram
 
     participant UserDatabaseService
     participant TokenDatabaseService
-
-    participant JwtRefreshTokenProvider
-    participant JwtAccessTokenProvider
 ```
 
 

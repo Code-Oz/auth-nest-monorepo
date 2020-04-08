@@ -20,7 +20,7 @@ export class AuthController {
   @UseFilters(ClassValidationExceptionFilter)
   async postRegister(
     @Body() userConnectionDto: UserConnectionDto,
-  ): Promise<ProvidersToken> {
+  ): Promise<{ message: string }> {
     return await this.authRegisterService.postRegister(userConnectionDto)
   }
 

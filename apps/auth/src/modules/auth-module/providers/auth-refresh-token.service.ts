@@ -24,6 +24,7 @@ export class AuthRefreshTokenService {
     }
 
     const { access_token } = await this.jwtAccessTokenProvider.provideAccessToken({ userId, userEmail })
+
     return {
       access_token,
       refresh_token: refreshToken,
