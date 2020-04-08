@@ -1,11 +1,11 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/auth-nest-monorepo/src",
+  "sourceRoot": "apps/auth/src",
   "monorepo": true,
-  "root": "apps/auth-nest-monorepo",
+  "root": "apps/auth",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/auth-nest-monorepo/tsconfig.app.json"
+    "tsConfigPath": "apps/auth/tsconfig.app.json"
   },
   "projects": {
     "auth": {

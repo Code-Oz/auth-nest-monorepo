@@ -7,7 +7,8 @@ import { JwtAccessTokenModule } from "@app/jwt-access-token"
 import { JwtRefreshTokenModule } from "@app/jwt-refresh-token"
 
 import { AuthController } from "./controllers/auth.controller"
-import { AuthService } from "./providers/auth.services"
+import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
+import { AuthRegisterService } from "./providers/auth-register.service"
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { AuthService } from "./providers/auth.services"
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
     },
-    AuthService,
+    AuthRefreshTokenService,
+    AuthRegisterService,
   ],
 })
 export class AuthModule {}

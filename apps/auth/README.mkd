@@ -3,37 +3,32 @@ POST `/register`
 ```mermaid
 sequenceDiagram
 
-    AuthController->>AuthService: /register
+    AuthController->>AuthRegisterService: /register
     alt wrong format
-        AuthService->>AuthController: Error
+        AuthRegisterService->>AuthController: Error
     end
 
-    AuthService->>UserDatabaseService: check if user exist in DB
+    AuthRegisterService->>UserDatabaseService: check if user exist in DB
     activate UserDatabaseService
     alt user already exist
-        UserDatabaseService->>AuthService: Error
+        UserDatabaseService->>AuthRegisterService: Error
         deactivate UserDatabaseService
-        AuthService->>AuthController: Error
+        AuthRegisterService->>AuthController: Error
     end
 
-    AuthService->>TokenDatabaseService: check if refresh token exist for this user
+    AuthRegisterService->>TokenDatabaseService: check if refresh token exist for this user
     activate TokenDatabaseService
     alt token already exist
-        TokenDatabaseService->>AuthService: Error
+        TokenDatabaseService->>AuthRegisterService: Error
         deactivate TokenDatabaseService
-        AuthService->>AuthController: Error
+        AuthRegisterService->>AuthController: Error
     end
 
-    AuthService->>UserDatabaseService: Save user in DB
-
-    JwtRefreshTokenProvider->>AuthService: Generate Refresh token for user
-    JwtAccessTokenProvider->>AuthService: Generate Access token for user
-
-    AuthService->>TokenDatabaseService: Save refresh token in DB
-    AuthService->>AuthController: Return refresh & access token
+    AuthRegisterService->>UserDatabaseService: Save user in DB
+    AuthRegisterService->>AuthController: return response
         
     participant AuthController
-    participant AuthService
+    participant AuthRegisterService
 
     participant UserDatabaseService
     participant TokenDatabaseService
@@ -48,7 +43,36 @@ PUT `/access_token`
 ```mermaid
 sequenceDiagram
 
-    AuthController->>AuthService: /access_token
+    AuthController->>AuthRefreshTokenService: /access_token
+    alt invalid token
+        AuthRefreshTokenService->>AuthController: Error
+    end
+
+    AuthRefreshTokenService->>TokenDatabaseService: check if refresh token is available
+    activate TokenDatabaseService
+    alt token not available
+        TokenDatabaseService->>AuthRefreshTokenService: Error
+        deactivate TokenDatabaseService
+        AuthRefreshTokenService->>AuthController: Error
+    end
+
+    JwtAccessTokenProvider->>AuthRefreshTokenService: Generate Access token for user
+
+    AuthRefreshTokenService->>TokenDatabaseService: Save refresh token in DB
+    AuthRefreshTokenService->>AuthController: Return refresh & access token
+        
+    participant AuthController
+    participant TokenDatabaseService
+
+    participant JwtAccessTokenProvider
+```
+
+POST `/login`
+
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthService: /login
     alt invalid token
         AuthService->>AuthController: Error
     end
