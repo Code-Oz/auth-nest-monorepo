@@ -6,4 +6,10 @@ export const userServiceMock = {
             password: "toto",
         }
     },
+    findUserByEmail: () => {
+        return {
+            email: "toto@toto.fr",
+            password: "toto",
+        }
+    },
 }

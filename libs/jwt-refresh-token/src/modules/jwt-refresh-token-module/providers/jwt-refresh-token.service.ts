@@ -26,8 +26,13 @@ export class JwtRefreshTokenService {
         return !!token
     }
 
-    private async findTokensByUserId(userId: string): Promise<RefreshTokenDocument[]> {
-        return await this.tokenRefreshModel.find({ userId }).exec()
+    // Thanks to this, you have only one connection by user at the same time
+    async makeSingletonConnection(email: string): Promise<void> {
+        await this.tokenRefreshModel.updateMany({ email }, { $set: { isAvailable: false } }).exec()
+    }
+
+    private async findTokensByEmail(email: string): Promise<RefreshTokenDocument[]> {
+        return await this.tokenRefreshModel.find({ email }).exec()
     }
 
     private async findTokenByUserId(refreshToken: string, userId: string): Promise<RefreshTokenDocument> {

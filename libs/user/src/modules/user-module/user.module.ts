@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common"
 import { MongooseModule } from "@nestjs/mongoose"
 
 import { UserService } from "./providers/user.service"
+import { UserCredentialService } from "./providers/user-credential.service"
 import { UserSchema } from "./schemas/user.schema"
 import { USERS_COLLECTION } from "./types/collection.types"
 
@@ -12,7 +13,11 @@ import { USERS_COLLECTION } from "./types/collection.types"
   ],
   providers: [
     UserService,
+    UserCredentialService,
   ],
-  exports: [ UserService ],
+  exports: [
+    UserService,
+    UserCredentialService,
+  ],
 })
 export class UserModule {}

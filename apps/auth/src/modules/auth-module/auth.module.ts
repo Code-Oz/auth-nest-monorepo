@@ -9,6 +9,7 @@ import { JwtRefreshTokenModule } from "@app/jwt-refresh-token"
 import { AuthController } from "./controllers/auth.controller"
 import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
 import { AuthRegisterService } from "./providers/auth-register.service"
+import { AuthLoginService } from "./providers/auth-login.service"
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthRegisterService } from "./providers/auth-register.service"
     },
     AuthRefreshTokenService,
     AuthRegisterService,
+    AuthLoginService,
   ],
 })
 export class AuthModule {}

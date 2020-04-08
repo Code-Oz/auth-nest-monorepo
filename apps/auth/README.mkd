@@ -81,6 +81,7 @@ sequenceDiagram
     end
 
     UserDatabaseService->>AuthLoginService: pick user (email & password)
+    UserCredentialService->>AuthLoginService: check if credential are valid and user not banned
 
     alt wrong password
         AuthLoginService->>AuthController: Error
@@ -97,6 +98,7 @@ sequenceDiagram
     AuthLoginService->>AuthController: Return access and refresh token
 
     participant UserDatabaseService
+    participant UserCredentialService
     participant JwtAccessTokenProvider
     participant JwtRefreshTokenProvider
     participant AuthLoginService
