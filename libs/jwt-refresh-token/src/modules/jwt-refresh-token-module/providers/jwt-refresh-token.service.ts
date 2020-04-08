@@ -18,7 +18,7 @@ export class JwtRefreshTokenService {
 
     async isTokenAvailable(refreshToken: string, userId: string): Promise<boolean> {
         const token = await this.findTokenByUserId(refreshToken, userId)
-        return token.isAvailable
+        return !!token && token.isAvailable
     }
 
     async isTokenExist(email: string): Promise<boolean> {
