@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 
 import { JwtAccessTokenProvider } from "@app/jwt-access-token"
-import { JwtRefreshTokenProvider, TokenNotAvailableException, JwtRefreshTokenService } from "@app/jwt-refresh-token"
+import { JwtRefreshTokenProvider, JwtRefreshTokenService, TokenNotAvailableException } from "@app/jwt-refresh-token"
 
 import { ProvidersToken } from "../types/providers-token.type"
 

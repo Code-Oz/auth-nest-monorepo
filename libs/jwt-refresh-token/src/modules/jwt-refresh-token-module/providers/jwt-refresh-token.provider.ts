@@ -2,26 +2,20 @@ import { Injectable } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 
 import { RefreshTokenPayload } from "../types/refresh-token.payload"
-import { WrongPayloadTokenException } from "../custom-errors/wrong-payload-token.exception"
+import { JwtTokenDecoding } from "@app/lib-global-nest/tokens/jwt-token-decoding-abstract.class"
 
 @Injectable()
-export class JwtRefreshTokenProvider {
+export class JwtRefreshTokenProvider extends JwtTokenDecoding<RefreshTokenPayload> {
     constructor(
-        private jwtService: JwtService,
-    ) {}
+        jwtService: JwtService,
+    ) {
+        super(jwtService)
+    }
 
     async provideRefreshToken(payload: RefreshTokenPayload) {
         return {
           refresh_token: this.jwtService.sign(payload),
         }
-    }
-
-    decodeToken(refreshToken: string): RefreshTokenPayload {
-        const payload = this.jwtService.decode(refreshToken, { json: true })
-        if (!this.isValidPayloadToken(payload)) {
-            throw new WrongPayloadTokenException()
-        }
-        return payload
     }
 
     isValidPayloadToken(payload: string | { [key: string]: any }): payload is RefreshTokenPayload {

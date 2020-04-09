@@ -128,6 +128,22 @@ sequenceDiagram
     AuthLogoutService->>AuthController: return response message
 ```
 
+POST `/reset_password`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthResetPasswordService: /reset_password
+
+    alt check format email
+        AuthResetPasswordService->>AuthController: Error
+    end
+
+    JwtPasswordToken->>AuthResetPasswordService: Generate token from JwtPasswordToken
+    AuthResetPasswordService->>EmailFactoryResetPassword: Generate email with token for user
+    AuthResetPasswordService->>AuthController: response with message
+
+```
+
 Module architecture
 
 // Change auth service
