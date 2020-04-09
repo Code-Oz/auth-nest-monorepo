@@ -5,18 +5,21 @@ import { APP_FILTER } from "@nestjs/core"
 import { GlobalExceptionFilter } from "@app/lib-global-nest"
 import { JwtAccessTokenModule } from "@app/jwt-access-token"
 import { JwtRefreshTokenModule } from "@app/jwt-refresh-token"
+import { JwtPasswordTokenModule } from "@app/jwt-password-token"
 
 import { AuthController } from "./controllers/auth.controller"
 import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
 import { AuthRegisterService } from "./providers/auth-register.service"
 import { AuthLoginService } from "./providers/auth-login.service"
 import { AuthLogoutService } from "./providers/auth-logout.service"
+import { AuthResetPasswordService } from "./providers/auth-reset-password.service"
 
 @Module({
   imports: [
     UserModule,
     JwtAccessTokenModule,
     JwtRefreshTokenModule,
+    JwtPasswordTokenModule,
   ],
   controllers: [ AuthController ],
   providers: [
@@ -28,6 +31,7 @@ import { AuthLogoutService } from "./providers/auth-logout.service"
     AuthRegisterService,
     AuthLoginService,
     AuthLogoutService,
+    AuthResetPasswordService,
   ],
 })
 export class AuthModule {}

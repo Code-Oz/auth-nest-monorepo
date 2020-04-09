@@ -54,7 +54,9 @@
       "ts"
     ],
     "rootDir": ".",
-    "testMatch": [ "**/__tests__/**/*spec.ts" ],
+    "testMatch": [
+      "**/__tests__/**/*spec.ts"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
@@ -85,7 +87,9 @@
       "@app/jwt-refresh-token/(.*)": "<rootDir>/libs/jwt-refresh-token/src/$1",
       "@app/jwt-refresh-token": "<rootDir>/libs/jwt-refresh-token/src",
       "@app/lib-global-nest/(.*)": "<rootDir>/libs/lib-global-nest/src/$1",
-      "@app/lib-global-nest": "<rootDir>/libs/lib-global-nest/src"
+      "@app/lib-global-nest": "<rootDir>/libs/lib-global-nest/src",
+      "@app/jwt-password-token/(.*)": "<rootDir>/libs/jwt-password-token/src/$1",
+      "@app/jwt-password-token": "<rootDir>/libs/jwt-password-token/src"
     }
   }
 }

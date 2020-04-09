@@ -52,6 +52,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/lib-global-nest/tsconfig.lib.json"
       }
+    },
+    "jwt-password-token": {
+      "type": "library",
+      "root": "libs/jwt-password-token",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt-password-token/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt-password-token/tsconfig.lib.json"
+      }
     }
   }
 }
