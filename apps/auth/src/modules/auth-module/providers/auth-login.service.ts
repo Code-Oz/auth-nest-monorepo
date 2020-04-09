@@ -5,7 +5,7 @@ import { JwtAccessTokenProvider } from "@app/jwt-access-token"
 import { JwtRefreshTokenProvider, JwtRefreshTokenService } from "@app/jwt-refresh-token"
 
 import { ProvidersToken } from "../types/providers-token.type"
-import { UserConnectionDto } from "../validations/user-connection"
+import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserWrongCredentialException } from "../custom-errors/user-wrong-credential.exception"
 
 @Injectable()
