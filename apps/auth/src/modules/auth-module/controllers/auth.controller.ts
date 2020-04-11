@@ -10,6 +10,8 @@ import { AuthRefreshTokenService } from "../providers/auth-refresh-token.service
 import { AuthRegisterService } from "../providers/auth-register.service"
 import { AuthLoginService } from "../providers/auth-login.service"
 import { AuthLogoutService } from "../providers/auth-logout.service"
+import { UserEmailDto } from "../validations/user-email.dto"
+import { AuthResetPasswordService } from "../providers/auth-reset-password.service"
 
 @Controller()
 export class AuthController {
@@ -18,6 +20,7 @@ export class AuthController {
     private readonly authRegisterService: AuthRegisterService,
     private readonly authLoginService: AuthLoginService,
     private readonly authLogoutService: AuthLogoutService,
+    private readonly authResetPasswordService: AuthResetPasswordService,
   ) {}
 
   @Post("register")
@@ -43,6 +46,14 @@ export class AuthController {
     @Body() refreshTokenDto: RefreshTokenDto,
   ): Promise<{ message: string }> {
     return await this.authLogoutService.postLogout(refreshTokenDto)
+  }
+
+  @Post("reset_password")
+  @UseFilters(ClassValidationExceptionFilter)
+  async postResetPassword(
+    @Body() userEmailDto: UserEmailDto,
+  ): Promise<{ message: string }> {
+    return await this.authResetPasswordService.postResetPassword(userEmailDto)
   }
 
   @Post("access_token")

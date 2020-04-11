@@ -14,16 +14,21 @@
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
+    "@nestjs/config": "^0.4.0",
     "@nestjs/core": "^6.7.2",
     "@nestjs/jwt": "^7.0.0",
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.7.2",
+    "@types/nodemailer": "^6.4.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.1",
     "mongoose": "^5.9.7",
+    "nodemailer": "^6.4.6",
+    "nodemailer-express-handlebars": "^4.0.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3"
@@ -89,7 +94,9 @@
       "@app/lib-global-nest/(.*)": "<rootDir>/libs/lib-global-nest/src/$1",
       "@app/lib-global-nest": "<rootDir>/libs/lib-global-nest/src",
       "@app/jwt-password-token/(.*)": "<rootDir>/libs/jwt-password-token/src/$1",
-      "@app/jwt-password-token": "<rootDir>/libs/jwt-password-token/src"
+      "@app/jwt-password-token": "<rootDir>/libs/jwt-password-token/src",
+      "@app/email-factory/(.*)": "<rootDir>/libs/email-factory/src/$1",
+      "@app/email-factory": "<rootDir>/libs/email-factory/src"
     }
   }
 }

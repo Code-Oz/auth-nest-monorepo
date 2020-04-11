@@ -61,6 +61,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/jwt-password-token/tsconfig.lib.json"
       }
+    },
+    "email-factory": {
+      "type": "library",
+      "root": "libs/email-factory",
+      "entryFile": "index",
+      "sourceRoot": "libs/email-factory/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email-factory/tsconfig.lib.json"
+      }
     }
   }
 }

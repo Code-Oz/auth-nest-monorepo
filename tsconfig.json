@@ -40,6 +40,12 @@
       ],
       "@app/jwt-password-token/*": [
         "libs/jwt-password-token/src/*"
+      ],
+      "@app/email-factory": [
+        "libs/email-factory/src"
+      ],
+      "@app/email-factory/*": [
+        "libs/email-factory/src/*"
       ]
     }
   },
