@@ -2,13 +2,15 @@ import { ExtractJwt, Strategy } from "passport-jwt"
 import { PassportStrategy } from "@nestjs/passport"
 import { Injectable } from "@nestjs/common"
 
+import { getVariableEnvironment } from "@app/lib-global-nest"
+
 @Injectable()
 export class JwtAccessTokenStrategy extends PassportStrategy(Strategy, "access-token") {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: "fake-access-token",
+      secretOrKey: getVariableEnvironment("JWT_ACCESS_TOKEN_SECRET"),
     })
   }
 
