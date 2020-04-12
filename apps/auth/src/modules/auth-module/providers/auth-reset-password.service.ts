@@ -12,14 +12,15 @@ export class AuthResetPasswordService {
     private emailFactoryService: EmailFactoryService,
     private configService: ConfigService,
     private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
-    // Generate token provider
   ) {}
 
   async postResetPassword(userEmailDto: UserEmailDto): Promise<{ message: string }> {
       const emailSender = this.configService.get<string>("EMAIL_SENDER")
       const passSender = this.configService.get<string>("PASSWORD_SENDER")
 
-      // Check if exist or throw error
+      if (!emailSender || !passSender) {
+        throw new Error("Environment variable don't exist for EMAIL_SENDER or PASSWORD_SENDER")
+      }
 
       const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: userEmailDto.email })
 
