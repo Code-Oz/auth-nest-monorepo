@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common"
 
-import { JwtRefreshTokenProvider, JwtRefreshTokenService, RefreshTokenDto } from "@app/jwt-refresh-token"
+import { JwtRefreshTokenProvider, JwtRefreshTokenService } from "@app/jwt-refresh-token"
 import { UserWrongCredentialException } from "../custom-errors/user-wrong-credential.exception"
+import { RefreshTokenDto } from "../validations/refresh-token.dto"
 
 @Injectable()
 export class AuthLogoutService {

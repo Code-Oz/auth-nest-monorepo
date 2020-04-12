@@ -138,9 +138,32 @@ sequenceDiagram
         AuthResetPasswordService->>AuthController: Error
     end
 
-    JwtPasswordToken->>AuthResetPasswordService: Generate token from JwtPasswordToken
+    JwtPasswordTokenProvider->>AuthResetPasswordService: Generate token from JwtPasswordTokenProvider
     AuthResetPasswordService->>EmailFactoryResetPassword: Generate email with token for user
     AuthResetPasswordService->>AuthController: response with message
+
+```
+
+POST `/change_password`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthChangePasswordService: /change_password
+
+    alt check token format
+        AuthChangePasswordService->>AuthController: Error
+    end
+    alt check password format
+        AuthChangePasswordService->>AuthController: Error
+    end
+        alt token is not available (expired)
+        AuthChangePasswordService->>AuthController: Error
+    end
+
+    JwtPasswordTokenProvider->>AuthChangePasswordService: Decode email from token
+    AuthChangePasswordService->>UserDatabaseService: Change password for this email
+
+    AuthChangePasswordService->>AuthController: response with message
 
 ```
 

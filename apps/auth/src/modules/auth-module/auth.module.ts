@@ -15,6 +15,7 @@ import { AuthRegisterService } from "./providers/auth-register.service"
 import { AuthLoginService } from "./providers/auth-login.service"
 import { AuthLogoutService } from "./providers/auth-logout.service"
 import { AuthResetPasswordService } from "./providers/auth-reset-password.service"
+import { AuthChangePasswordService } from "./providers/auth-change-password.service"
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { AuthResetPasswordService } from "./providers/auth-reset-password.servic
     AuthLoginService,
     AuthLogoutService,
     AuthResetPasswordService,
+    AuthChangePasswordService,
   ],
 })
 export class AuthModule {}

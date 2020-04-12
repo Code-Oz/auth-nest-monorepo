@@ -4,6 +4,7 @@ import { JwtAccessTokenProvider } from "@app/jwt-access-token"
 import { JwtRefreshTokenProvider, JwtRefreshTokenService, TokenNotAvailableException } from "@app/jwt-refresh-token"
 
 import { ProvidersToken } from "../types/providers-token.type"
+import { RefreshTokenDto } from "../validations/refresh-token.dto"
 
 @Injectable()
 export class AuthRefreshTokenService {
@@ -13,7 +14,8 @@ export class AuthRefreshTokenService {
     private jwtRefreshTokenService: JwtRefreshTokenService,
   ) {}
 
-  async postAccessToken(refreshToken: string): Promise<ProvidersToken> {
+  async postAccessToken(refreshTokenDto: RefreshTokenDto): Promise<ProvidersToken> {
+    const { refreshToken } = refreshTokenDto
     const { userId, userEmail } = this.jwtRefreshTokenProvider.decodeToken(refreshToken)
     const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshToken, userId)
 
