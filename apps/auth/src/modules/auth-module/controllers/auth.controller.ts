@@ -1,8 +1,8 @@
-import { Controller, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
+import { Controller, UseGuards, Post, Body, UseFilters, Headers } from "@nestjs/common"
 
-import { ClassValidationExceptionFilter } from "@app/lib-global-nest/exception-filters"
-import { JwtRefreshTokenAuthGuard } from "@app/jwt-refresh-token"
-import { JwtPasswordTokenAuthGuard } from "@app/jwt-password-token"
+import { AuthUser, ClassValidationExceptionFilter } from "@app/lib-global-nest"
+import { JwtRefreshTokenAuthGuard, RefreshTokenPayload } from "@app/jwt-refresh-token"
+import { JwtPasswordTokenAuthGuard, PasswordTokenPayload } from "@app/jwt-password-token"
 
 import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserRegisterDto } from "../validations/user-register.dto"
@@ -10,6 +10,7 @@ import { UserEmailDto } from "../validations/user-email.dto"
 import { RefreshTokenDto } from "../validations/refresh-token.dto"
 import { ChangePasswordDto } from "../validations/change-password.tdo"
 import { ProvidersToken } from "../types/providers-token.type"
+import { AccessToken } from "../types/access-token.type"
 import { AuthRefreshTokenService } from "../providers/auth-refresh-token.service"
 import { AuthRegisterService } from "../providers/auth-register.service"
 import { AuthLoginService } from "../providers/auth-login.service"
@@ -46,9 +47,9 @@ export class AuthController {
   @Post("logout")
   @UseGuards(JwtRefreshTokenAuthGuard)
   async postLogout(
-    @Body() refreshTokenDto: RefreshTokenDto,
+    @AuthUser() authUser: RefreshTokenPayload,
   ): Promise<{ message: string }> {
-    return await this.authLogoutService.postLogout(refreshTokenDto)
+    return await this.authLogoutService.postLogout(authUser)
   }
 
   @Post("reset_password")
@@ -61,17 +62,18 @@ export class AuthController {
   @Post("change_password")
   @UseGuards(JwtPasswordTokenAuthGuard)
   async postChangePassword(
+    @AuthUser() authUser: PasswordTokenPayload,
     @Body() changePasswordTokenDto: ChangePasswordDto,
   ): Promise<{ message: string }> {
-    return await this.authChangePasswordService.postChangePassword(changePasswordTokenDto)
+    return await this.authChangePasswordService.postChangePassword(changePasswordTokenDto, authUser)
   }
 
   @Post("access_token")
   @UseGuards(JwtRefreshTokenAuthGuard)
   async postAccessToken(
-    @Body() refreshTokenDto: RefreshTokenDto,
-  ): Promise<ProvidersToken> {
-    return await this.authService.postAccessToken(refreshTokenDto)
+    @AuthUser() authUser: RefreshTokenPayload,
+  ): Promise<AccessToken> {
+    return await this.authService.postAccessToken(authUser)
   }
 
 }

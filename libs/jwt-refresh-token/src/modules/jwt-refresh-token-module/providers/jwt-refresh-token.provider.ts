@@ -2,15 +2,12 @@ import { Injectable } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 
 import { RefreshTokenPayload } from "../types/refresh-token.payload"
-import { JwtTokenDecoding } from "@app/lib-global-nest/tokens/jwt-token-decoding-abstract.class"
 
 @Injectable()
-export class JwtRefreshTokenProvider extends JwtTokenDecoding<RefreshTokenPayload> {
+export class JwtRefreshTokenProvider {
     constructor(
-        jwtService: JwtService,
-    ) {
-        super(jwtService)
-    }
+        private jwtService: JwtService,
+    ) {}
 
     async provideRefreshToken(payload: RefreshTokenPayload) {
         return {
@@ -18,10 +15,4 @@ export class JwtRefreshTokenProvider extends JwtTokenDecoding<RefreshTokenPayloa
         }
     }
 
-    isValidPayloadToken(payload: string | { [key: string]: any }): payload is RefreshTokenPayload {
-        if (!payload || typeof payload === "string") {
-            return false
-        }
-        return !!payload.userId && !!payload.userEmail
-    }
 }
