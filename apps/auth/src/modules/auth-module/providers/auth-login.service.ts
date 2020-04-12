@@ -1,3 +1,5 @@
+import { Types } from "mongoose"
+
 import { Injectable } from "@nestjs/common"
 
 import { UserService, UserCredentialService, UserDocument } from "@app/user"
@@ -48,9 +50,11 @@ export class AuthLoginService {
   }
 
   private async provideToken(user: UserDocument): Promise<ProvidersToken> {
+    const refreshTokenId = new Types.ObjectId().toHexString()
     const refreshToken = await this.jwtRefreshTokenProvider.provideRefreshToken({
         userId: user.id,
         userEmail: user.email,
+        refreshTokenId,
     })
     const accessToken = await this.jwtAccessTokenProvider.provideAccessToken({
         userId: user.id,
@@ -58,6 +62,7 @@ export class AuthLoginService {
     })
 
     await this.jwtRefreshTokenService.saveToken({
+        _id: refreshTokenId,
         email: user.email,
         userId: user.id,
         refresh_token: refreshToken.refresh_token,

@@ -2,6 +2,7 @@ import { Schema, Document } from "mongoose"
 import { IsEmail, IsNotEmpty } from "class-validator"
 
 export const RefreshTokenSchema = new Schema({
+  _id: String,
   email: String,
   userId: String,
   refresh_token: String,
@@ -16,6 +17,10 @@ export interface RefreshTokenDocument extends Document {
 }
 
 export class RefreshTokenCreationDto {
+
+    @IsNotEmpty()
+    _id: string
+
     @IsEmail()
     email: string
 
