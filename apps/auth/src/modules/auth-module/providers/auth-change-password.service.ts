@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common"
 import { PasswordTokenPayload } from "@app/jwt-password-token"
 import { UserService } from "@app/user"
 
-import { ChangePasswordDto } from "../validations/change-password.tdo"
+import { ChangePasswordDto } from "../validations/change-password.dto"
 
 @Injectable()
 export class AuthChangePasswordService {

@@ -26,8 +26,13 @@ export class AuthResetPasswordService {
 
       return await this.emailFactoryService.sendEmailResetPassword(
           userEmailDto.email,
-          { email: userEmailDto.email, token: resetPasswordToken.password_token },
-          { user: emailSender, pass: passSender },
+          {
+            email: userEmailDto.email,
+            token: resetPasswordToken.password_token,
+          },
+          {
+            user: emailSender, pass: passSender,
+          },
       )
   }
 

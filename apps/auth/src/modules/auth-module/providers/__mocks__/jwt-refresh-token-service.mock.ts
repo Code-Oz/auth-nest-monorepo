@@ -3,4 +3,5 @@ export const jwtRefreshTokenServiceMock = {
     saveToken: () => true,
     isTokenAvailable: () => true,
     makeSingletonConnection: jest.fn(),
+    changeStatusToken: jest.fn(),
 }

@@ -4,5 +4,4 @@ export const jwtRefreshTokenProviderMock = {
             refresh_token: "fakeTokenRefresh",
         }
     },
-    decodeToken: () => true,
 }

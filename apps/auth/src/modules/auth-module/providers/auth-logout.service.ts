@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common"
 
-import { JwtRefreshTokenService, RefreshTokenPayload } from "@app/jwt-refresh-token"
-import { UserWrongCredentialException } from "../custom-errors/user-wrong-credential.exception"
+import { JwtRefreshTokenService, RefreshTokenPayload, TokenNotAvailableException } from "@app/jwt-refresh-token"
 
 @Injectable()
 export class AuthLogoutService {
@@ -13,7 +12,7 @@ export class AuthLogoutService {
     const { userEmail, refreshTokenId } = refreshTokenPayload
     const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
     if (!isTokenAvailable) {
-      throw new UserWrongCredentialException()
+      throw new TokenNotAvailableException()
     }
     await this.jwtRefreshTokenService.changeStatusToken(userEmail, refreshTokenId)
 

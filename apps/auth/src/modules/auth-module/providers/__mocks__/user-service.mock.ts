@@ -12,4 +12,5 @@ export const userServiceMock = {
             password: "toto",
         }
     },
+    changeUserPassword: () => undefined,
 }
