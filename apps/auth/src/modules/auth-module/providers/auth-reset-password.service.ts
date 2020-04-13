@@ -25,6 +25,8 @@ export class AuthResetPasswordService {
 
       const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: userEmailDto.email })
 
+      // ! TODO Check if user exist on the platform
+
       return await this.emailFactoryService.sendEmailResetPassword(
           userEmailDto.email,
           {

@@ -5,6 +5,7 @@ import { UserService } from "@app/user"
 
 import { ChangePasswordDto } from "../validations/change-password.dto"
 import { MessageResponse } from "../types/message-response.types"
+import { postChangePasswordResponseMessage } from "../controllers/response-messages/post-change-password-response"
 
 @Injectable()
 export class AuthChangePasswordService {
@@ -19,7 +20,7 @@ export class AuthChangePasswordService {
     await this.userService.changeUserPassword(userEmail, password)
 
     return {
-      message: "User password has been changed !",
+      message: postChangePasswordResponseMessage,
     }
   }
 

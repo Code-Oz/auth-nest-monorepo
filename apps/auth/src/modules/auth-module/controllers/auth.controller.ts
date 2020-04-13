@@ -19,8 +19,10 @@ import { AuthLogoutService } from "../providers/auth-logout.service"
 import { AuthResetPasswordService } from "../providers/auth-reset-password.service"
 import { AuthChangePasswordService } from "../providers/auth-change-password.service"
 
-import { MessageResponsePostRegister } from "../swagger/types/post-register/message-response-post-register.class"
-import { MessageErrorPostRegister } from "../swagger/types/post-register/message-error-post-register.class"
+import { PostRegisterResponse201 } from "./response-messages/post-register-response"
+import { PostLogoutResponse201 } from "./response-messages/post-logout-response"
+import { PostChangePasswordResponse201 } from "./response-messages/post-change-password-response"
+import { PostResetPasswordResponse201 } from "./response-messages/post-reset-password-response"
 
 @UseFilters(ClassValidationExceptionFilter)
 @Controller()
@@ -36,9 +38,7 @@ export class AuthController {
 
   @Post("register")
   @ApiOperation({ summary: "Register user in the application" })
-  @ApiResponse({ status: 201, description: "User has been register", type: MessageResponsePostRegister })
-  // Regroup error exception filter return typage for type MessageErrorPostRegister correctly
-  @ApiResponse({ status: 400, description: "Error: Bad Request", type: MessageErrorPostRegister })
+  @ApiResponse({ status: 201, description: "When user succeeded to regist", type: PostRegisterResponse201 })
   async postRegister(
     @Body() userRegisterDto: UserRegisterDto,
   ): Promise<MessageResponse> {
@@ -46,6 +46,8 @@ export class AuthController {
   }
 
   @Post("login")
+  @ApiOperation({ summary: "Login user in the application with email and password" })
+  @ApiResponse({ status: 201, description: "When user succeeded to login", type: ProvidersToken })
   async postLogin(
     @Body() userConnectionDto: UserConnectionDto,
   ): Promise<ProvidersToken> {
@@ -54,6 +56,8 @@ export class AuthController {
 
   @Post("logout")
   @UseGuards(JwtRefreshTokenAuthGuard)
+  @ApiOperation({ summary: "Logout user on the application" })
+  @ApiResponse({ status: 201, description: "When user succeeded to logout", type: PostLogoutResponse201 })
   @ApiBearerAuth("refresh-token")
   async postLogout(
     @AuthUser() authUser: RefreshTokenPayload,
@@ -62,6 +66,8 @@ export class AuthController {
   }
 
   @Post("reset_password")
+  @ApiOperation({ summary: "Send email to user for giving him mail in order to change password user" })
+  @ApiResponse({ status: 201, description: "Email for reseting password has been send to email if exist", type: PostResetPasswordResponse201 })
   async postResetPassword(
     @Body() userEmailDto: UserEmailDto,
   ): Promise<MessageResponse> {
@@ -70,6 +76,8 @@ export class AuthController {
 
   @Post("change_password")
   @UseGuards(JwtPasswordTokenAuthGuard)
+  @ApiOperation({ summary: "Logout user on the application" })
+  @ApiResponse({ status: 201, description: "Change password user thanks to token given in email", type: PostChangePasswordResponse201 })
   @ApiBearerAuth("password-token")
   async postChangePassword(
     @AuthUser() authUser: PasswordTokenPayload,
@@ -80,6 +88,8 @@ export class AuthController {
 
   @Post("access_token")
   @UseGuards(JwtRefreshTokenAuthGuard)
+  @ApiOperation({ summary: "Give a new access token from refresh token for accessing to API" })
+  @ApiResponse({ status: 201, description: "Get new access token", type: AccessToken })
   @ApiBearerAuth("refresh-token")
   async postAccessToken(
     @AuthUser() authUser: RefreshTokenPayload,

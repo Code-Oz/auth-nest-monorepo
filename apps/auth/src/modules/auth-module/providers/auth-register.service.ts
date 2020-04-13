@@ -6,6 +6,7 @@ import { JwtRefreshTokenService } from "@app/jwt-refresh-token"
 import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"
 import { MessageResponse } from "../types/message-response.types"
+import { postRegisterResponseMessage } from "../controllers/response-messages/post-register-response"
 
 @Injectable()
 export class AuthRegisterService {
@@ -26,7 +27,7 @@ export class AuthRegisterService {
     await this.userService.createUser({ email, password })
 
     return {
-      message: "User has been registered !",
+      message: postRegisterResponseMessage,
     }
   }
 
