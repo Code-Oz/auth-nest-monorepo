@@ -1,7 +1,7 @@
 import { Controller, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
 import { ApiBearerAuth, ApiOperation, ApiResponse } from "@nestjs/swagger"
 
-import { AuthUser, ClassValidationExceptionFilter, HashPassword } from "@app/lib-global-nest"
+import { DecodedToken, ClassValidationExceptionFilter, HashPassword } from "@app/lib-global-nest"
 import { JwtRefreshTokenAuthGuard, RefreshTokenPayload } from "@app/jwt-refresh-token"
 import { JwtPasswordTokenAuthGuard, PasswordTokenPayload } from "@app/jwt-password-token"
 
@@ -61,9 +61,9 @@ export class AuthController {
   @ApiResponse({ status: 201, description: "When user succeeded to logout", type: PostLogoutResponse201 })
   @ApiBearerAuth("refresh-token")
   async postLogout(
-    @AuthUser() authUser: RefreshTokenPayload,
+    @DecodedToken() refreshTokenPayload: RefreshTokenPayload,
   ): Promise<MessageResponse> {
-    return await this.authLogoutService.postLogout(authUser)
+    return await this.authLogoutService.postLogout(refreshTokenPayload)
   }
 
   @Post("reset_password")
@@ -81,11 +81,11 @@ export class AuthController {
   @ApiResponse({ status: 201, description: "Change password user thanks to token given in email", type: PostChangePasswordResponse201 })
   @ApiBearerAuth("password-token")
   async postChangePassword(
-    @AuthUser() authUser: PasswordTokenPayload,
+    @DecodedToken() passwordTokenPayload: PasswordTokenPayload,
     @Body() changePasswordTokenDto: ChangePasswordDto,
     @HashPassword("password") hashedPassword: { [field: string]: string },
   ): Promise<MessageResponse> {
-    return await this.authChangePasswordService.postChangePassword({ ...changePasswordTokenDto, ...hashedPassword }, authUser)
+    return await this.authChangePasswordService.postChangePassword({ ...changePasswordTokenDto, ...hashedPassword }, passwordTokenPayload)
   }
 
   @Post("access_token")
@@ -94,9 +94,9 @@ export class AuthController {
   @ApiResponse({ status: 201, description: "Get new access token", type: AccessToken })
   @ApiBearerAuth("refresh-token")
   async postAccessToken(
-    @AuthUser() authUser: RefreshTokenPayload,
+    @DecodedToken() refreshTokenPayload: RefreshTokenPayload,
   ): Promise<AccessToken> {
-    return await this.authService.postAccessToken(authUser)
+    return await this.authService.postAccessToken(refreshTokenPayload)
   }
 
 }
