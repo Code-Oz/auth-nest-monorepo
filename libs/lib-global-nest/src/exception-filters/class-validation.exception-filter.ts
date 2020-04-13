@@ -1,5 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, BadRequestException } from "@nestjs/common"
 import { Request, Response } from "express"
+import { ClassValidationExceptionFilterReturnType } from ".."
 
 @Catch(BadRequestException)
 export class ClassValidationExceptionFilter implements ExceptionFilter {
@@ -11,15 +12,17 @@ export class ClassValidationExceptionFilter implements ExceptionFilter {
     const message = exception.message
     const status = exception.getStatus()
 
+    const responseObject: ClassValidationExceptionFilterReturnType = {
+      statusCode: status,
+      path: request.url,
+      method,
+      errors: this.formatingErrorMessage(message),
+      timestamp: new Date().toISOString(),
+    }
+
     response
       .status(status)
-      .json({
-        statusCode: status,
-        path: request.url,
-        method,
-        errors: this.formatingErrorMessage(message),
-        timestamp: new Date().toISOString(),
-      })
+      .json(responseObject)
   }
 
   private formatingErrorMessage(errorObject: ErrorMessageInterface) {
