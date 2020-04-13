@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common"
+import { ConfigService } from "@nestjs/config"
 
 import { JwtPasswordTokenProvider } from "@app/jwt-password-token"
 import { EmailFactoryService } from "@app/email-factory"
 
 import { UserEmailDto } from "../validations/user-email.dto"
-import { ConfigService } from "@nestjs/config"
+import { MessageResponse } from "../types/message-response.types"
 
 @Injectable()
 export class AuthResetPasswordService {
@@ -14,7 +15,7 @@ export class AuthResetPasswordService {
     private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
   ) {}
 
-  async postResetPassword(userEmailDto: UserEmailDto): Promise<{ message: string }> {
+  async postResetPassword(userEmailDto: UserEmailDto): Promise<MessageResponse> {
       const emailSender = this.configService.get<string>("EMAIL_SENDER")
       const passSender = this.configService.get<string>("PASSWORD_SENDER")
 

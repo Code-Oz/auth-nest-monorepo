@@ -20,6 +20,7 @@
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/swagger": "^4.5.1",
     "@types/nodemailer": "^6.4.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.1",
@@ -31,7 +32,8 @@
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
-    "rxjs": "^6.5.3"
+    "rxjs": "^6.5.3",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",

@@ -2,13 +2,15 @@ import { Injectable } from "@nestjs/common"
 
 import { JwtRefreshTokenService, RefreshTokenPayload, TokenNotAvailableException } from "@app/jwt-refresh-token"
 
+import { MessageResponse } from "../types/message-response.types"
+
 @Injectable()
 export class AuthLogoutService {
   constructor(
     private jwtRefreshTokenService: JwtRefreshTokenService,
   ) {}
 
-  async postLogout(refreshTokenPayload: RefreshTokenPayload): Promise<{ message: string }> {
+  async postLogout(refreshTokenPayload: RefreshTokenPayload): Promise<MessageResponse> {
     const { userEmail, refreshTokenId } = refreshTokenPayload
     const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
     if (!isTokenAvailable) {

@@ -1,6 +1,8 @@
 import { NestFactory } from "@nestjs/core"
-import { AuthModule } from "./modules/auth-module/auth.module"
 import { ValidationPipe } from "@nestjs/common"
+import { SwaggerModule } from "@nestjs/swagger"
+import { AuthModule } from "./modules/auth-module/auth.module"
+import { documentBuilderForSwagger } from "./modules/auth-module/swagger/document-builder/main"
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule)
@@ -12,6 +14,10 @@ async function bootstrap() {
       target: false,
     },
   }))
+
+  const document = documentBuilderForSwagger(app)
+  SwaggerModule.setup("api", app, document)
+
   await app.listen(3000)
 }
 bootstrap()
