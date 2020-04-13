@@ -7,7 +7,7 @@ export const RefreshTokenSchema = new Schema({
   userId: String,
   refresh_token: String,
   isAvailable: Boolean,
-})
+}, { versionKey: false })
 
 export interface RefreshTokenDocument extends Document {
     email: string

@@ -4,7 +4,7 @@ import { IsEmail, IsNotEmpty, MinLength } from "class-validator"
 export const UserSchema = new Schema({
   email: String,
   password: String,
-})
+}, { versionKey: false })
 
 export interface UserDocument extends Document {
   email: string
