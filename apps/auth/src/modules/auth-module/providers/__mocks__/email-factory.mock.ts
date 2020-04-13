@@ -1,6 +1,6 @@
 export const sendEmailResetPassword = {
     sendEmailResetPassword: () => {
-        return { 
+        return {
             message: "An email has been send to fakeUserEmail, if email exist",
         }
     },

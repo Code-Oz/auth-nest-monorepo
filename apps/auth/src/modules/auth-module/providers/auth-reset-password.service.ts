@@ -1,15 +1,18 @@
 import { Injectable } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 
+import { UserService } from "@app/user"
 import { JwtPasswordTokenProvider } from "@app/jwt-password-token"
 import { EmailFactoryService } from "@app/email-factory"
 
 import { UserEmailDto } from "../validations/user-email.dto"
 import { MessageResponse } from "../types/message-response.types"
+import { postResetPasswordResponseMessage } from "../controllers/response-messages/post-reset-password-response"
 
 @Injectable()
 export class AuthResetPasswordService {
   constructor(
+    private userService: UserService,
     private emailFactoryService: EmailFactoryService,
     private configService: ConfigService,
     private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
@@ -23,20 +26,26 @@ export class AuthResetPasswordService {
         throw new Error("Environment variable don't exist for EMAIL_SENDER or PASSWORD_SENDER")
       }
 
-      const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: userEmailDto.email })
+      const { email } = userEmailDto
+      const isUserRegistered = await this.userService.isExistUser(email)
 
-      // ! TODO Check if user exist on the platform
+      if (isUserRegistered) {
+        const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: email })
+        await this.emailFactoryService.sendEmailResetPassword(
+            email,
+            {
+              email: email,
+              token: resetPasswordToken.password_token,
+            },
+            {
+              user: emailSender, pass: passSender,
+            },
+        )
+      }
 
-      return await this.emailFactoryService.sendEmailResetPassword(
-          userEmailDto.email,
-          {
-            email: userEmailDto.email,
-            token: resetPasswordToken.password_token,
-          },
-          {
-            user: emailSender, pass: passSender,
-          },
-      )
+      return {
+        message: postResetPasswordResponseMessage(email),
+      }
   }
 
 }
