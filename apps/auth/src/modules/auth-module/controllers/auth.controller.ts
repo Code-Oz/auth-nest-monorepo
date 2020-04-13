@@ -1,7 +1,7 @@
 import { Controller, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
 import { ApiBearerAuth, ApiOperation, ApiResponse } from "@nestjs/swagger"
 
-import { AuthUser, ClassValidationExceptionFilter } from "@app/lib-global-nest"
+import { AuthUser, ClassValidationExceptionFilter, HashPassword } from "@app/lib-global-nest"
 import { JwtRefreshTokenAuthGuard, RefreshTokenPayload } from "@app/jwt-refresh-token"
 import { JwtPasswordTokenAuthGuard, PasswordTokenPayload } from "@app/jwt-password-token"
 
@@ -41,8 +41,9 @@ export class AuthController {
   @ApiResponse({ status: 201, description: "When user succeeded to regist", type: PostRegisterResponse201 })
   async postRegister(
     @Body() userRegisterDto: UserRegisterDto,
+    @HashPassword("password") hashedPassword: { [field: string]: string },
   ): Promise<MessageResponse> {
-    return await this.authRegisterService.postRegister(userRegisterDto)
+    return await this.authRegisterService.postRegister({ ...userRegisterDto, ...hashedPassword })
   }
 
   @Post("login")
@@ -82,8 +83,9 @@ export class AuthController {
   async postChangePassword(
     @AuthUser() authUser: PasswordTokenPayload,
     @Body() changePasswordTokenDto: ChangePasswordDto,
+    @HashPassword("password") hashedPassword: { [field: string]: string },
   ): Promise<MessageResponse> {
-    return await this.authChangePasswordService.postChangePassword(changePasswordTokenDto, authUser)
+    return await this.authChangePasswordService.postChangePassword({ ...changePasswordTokenDto, ...hashedPassword }, authUser)
   }
 
   @Post("access_token")

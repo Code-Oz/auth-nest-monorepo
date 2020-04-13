@@ -1,3 +1,3 @@
 export const userCredentialServiceMock = {
-    checkingCredentialPassword: () => true,
+    checkingCredentialPassword: async () => true,
 }

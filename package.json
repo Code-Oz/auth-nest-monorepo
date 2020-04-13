@@ -22,6 +22,7 @@
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^4.5.1",
     "@types/nodemailer": "^6.4.0",
+    "bcrypt": "^4.0.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.1",
     "express-rate-limit": "^5.1.1",

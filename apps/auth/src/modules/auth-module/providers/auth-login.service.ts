@@ -29,17 +29,17 @@ export class AuthLoginService {
         throw new UserWrongCredentialException()
     }
 
-    this.checkingCredential(userConnectionDto, user)
+    await this.checkingCredential(userConnectionDto, user)
 
     await this.jwtRefreshTokenService.makeSingletonConnection(email)
 
     return await this.provideToken(user)
   }
 
-  private checkingCredential(userConnectionDto: UserConnectionDto, user: UserDocument): void {
+  private async checkingCredential(userConnectionDto: UserConnectionDto, user: UserDocument): Promise<void> {
     const passwordFromRequest = userConnectionDto.password
     const passwordFromDb = user.password
-    const isCredentialCorrect = this.userCredentialService.checkingCredentialPassword(
+    const isCredentialCorrect = await this.userCredentialService.checkingCredentialPassword(
         passwordFromRequest,
         passwordFromDb,
     )

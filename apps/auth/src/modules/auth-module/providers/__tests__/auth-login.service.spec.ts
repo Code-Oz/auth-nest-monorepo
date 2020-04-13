@@ -59,7 +59,7 @@ describe("AuthLogin", () => {
     })
     it("should throw UserWrongCredentialException", async (done) => {
         const exceptedError = "Wrong credential"
-        userCredentialService.checkingCredentialPassword = () => false
+        userCredentialService.checkingCredentialPassword = async () => false
         try {
             await authRegisterService.postLogin({
                 email: "toto@toto.fr",
