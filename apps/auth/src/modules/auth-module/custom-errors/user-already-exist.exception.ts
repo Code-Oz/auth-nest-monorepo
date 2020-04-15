@@ -4,6 +4,6 @@ const errorMessage = "User already register"
 
 export class UserAlreadyExistException extends HttpException {
     constructor() {
-      super(errorMessage, HttpStatus.BAD_REQUEST)
+      super(errorMessage, HttpStatus.CONFLICT)
     }
 }

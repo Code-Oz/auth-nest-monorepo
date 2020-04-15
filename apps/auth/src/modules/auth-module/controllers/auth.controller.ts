@@ -39,6 +39,8 @@ export class AuthController {
   @Post("register")
   @ApiOperation({ summary: "Register user in the application" })
   @ApiResponse({ status: 201, description: "When user succeeded to regist", type: PostRegisterResponse201 })
+  @ApiResponse({ status: 400, description: "Class Validation error" })
+  @ApiResponse({ status: 409, description: "User already register" })
   async postRegister(
     @Body() userRegisterDto: UserRegisterDto,
     @HashPassword("password") hashedPassword: { [field: string]: string },
@@ -49,6 +51,8 @@ export class AuthController {
   @Post("login")
   @ApiOperation({ summary: "Login user in the application with email and password" })
   @ApiResponse({ status: 201, description: "When user succeeded to login", type: ProvidersToken })
+  @ApiResponse({ status: 400, description: "Class Validation error" })
+  @ApiResponse({ status: 403, description: "Wrong Credential" })
   async postLogin(
     @Body() userConnectionDto: UserConnectionDto,
   ): Promise<ProvidersToken> {
