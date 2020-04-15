@@ -35,6 +35,8 @@ lerna-debug.log*
 
 # Secret key
 .env
+.test.env
+.dev.env
 
 # Mongo data
 data/*

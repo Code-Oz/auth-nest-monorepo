@@ -6,11 +6,11 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
+    "start": "cross-env NODE_ENV=dev nest start",
+    "start:dev": "npm run start --watch",
+    "start:debug": "npm run start --debug --watch",
     "start:prod": "node dist/main",
-    "test": "jest --coverage"
+    "test": "cross-env NODE_ENV=test jest --coverage"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
@@ -21,6 +21,7 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^4.5.1",
+    "@shelf/jest-mongodb": "^1.1.5",
     "@types/nodemailer": "^6.4.0",
     "bcrypt": "^4.0.1",
     "class-transformer": "^0.2.3",
@@ -47,6 +48,7 @@
     "@types/node": "^12.7.5",
     "@types/passport-jwt": "^3.0.3",
     "@types/supertest": "^2.0.8",
+    "cross-env": "^7.0.2",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
@@ -84,6 +86,7 @@
       "!**/__mocks__/**"
     ],
     "testEnvironment": "node",
+    "preset": "@shelf/jest-mongodb",
     "roots": [
       "<rootDir>/apps/",
       "<rootDir>/libs/"
