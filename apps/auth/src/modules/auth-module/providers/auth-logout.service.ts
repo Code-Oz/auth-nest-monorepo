@@ -14,9 +14,11 @@ export class AuthLogoutService {
   async postLogout(refreshTokenPayload: RefreshTokenPayload): Promise<MessageResponse> {
     const { userEmail, refreshTokenId } = refreshTokenPayload
     const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
+
     if (!isTokenAvailable) {
       throw new TokenNotAvailableException()
     }
+
     await this.jwtRefreshTokenService.changeStatusToken(userEmail, refreshTokenId)
 
     return {

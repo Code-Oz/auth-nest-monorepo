@@ -10,7 +10,7 @@
     "start:dev": "npm run start --watch",
     "start:debug": "npm run start --debug --watch",
     "start:prod": "node dist/main",
-    "test": "cross-env NODE_ENV=test jest --coverage"
+    "test": "cross-env NODE_ENV=test jest --coverage --runInBand"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",

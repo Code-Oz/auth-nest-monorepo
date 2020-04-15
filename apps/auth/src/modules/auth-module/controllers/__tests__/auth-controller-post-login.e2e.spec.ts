@@ -137,7 +137,7 @@ describe("AuthController E2E: PostLogin", () => {
 
     done()
   })
-  test(`/POST register: Class validation failed`, async (done) => {
+  test(`/POST login: Class validation failed`, async (done) => {
     const fakeUserBodyWithWrongPassword = {
         email: "toto@toto.fr",
         password: "tititi",

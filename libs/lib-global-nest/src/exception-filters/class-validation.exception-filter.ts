@@ -2,6 +2,7 @@ import { ExceptionFilter, Catch, ArgumentsHost, BadRequestException } from "@nes
 import { Request, Response } from "express"
 import { ClassValidationExceptionFilterReturnType } from ".."
 
+// Apply on DTO class
 @Catch(BadRequestException)
 export class ClassValidationExceptionFilter implements ExceptionFilter {
   catch(exception: BadRequestException, host: ArgumentsHost) {

@@ -63,6 +63,8 @@ export class AuthController {
   @UseGuards(JwtRefreshTokenAuthGuard)
   @ApiOperation({ summary: "Logout user on the application" })
   @ApiResponse({ status: 201, description: "When user succeeded to logout", type: PostLogoutResponse201 })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Token is not available in db" })
   @ApiBearerAuth("refresh-token")
   async postLogout(
     @DecodedToken() refreshTokenPayload: RefreshTokenPayload,
@@ -96,6 +98,7 @@ export class AuthController {
   @UseGuards(JwtRefreshTokenAuthGuard)
   @ApiOperation({ summary: "Give a new access token from refresh token for accessing to API" })
   @ApiResponse({ status: 201, description: "Get new access token", type: AccessToken })
+  @ApiResponse({ status: 403, description: "Token is not available" })
   @ApiBearerAuth("refresh-token")
   async postAccessToken(
     @DecodedToken() refreshTokenPayload: RefreshTokenPayload,
