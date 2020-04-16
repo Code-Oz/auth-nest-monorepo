@@ -29,8 +29,8 @@ import { AuthChangePasswordService } from "./providers/auth-change-password.serv
     controllers: [ AuthController ],
     providers: [
         {
-        provide: APP_FILTER,
-        useClass: GlobalExceptionFilter,
+            provide: APP_FILTER,
+            useClass: GlobalExceptionFilter,
         },
         AuthRefreshTokenService,
         AuthRegisterService,

@@ -1,0 +1,150 @@
+# APPS
+
+**Api-Auth**
+
+--Providers--
+
+### AuthRegisterService
+
+Service that manage register services.
+
+### AuthLoginService
+
+Service that manage login services.
+
+### AuthRefreshTokenService
+
+Service that give a new access token.
+
+It allow user to refresh his access token thanks to refresh token.
+
+### AuthLogoutService
+
+Service that manage logout services.
+
+### AuthResetPasswordService
+
+Service that manage sending reset password link to user email.
+
+_Note_
+
+User don't know if email sending is registered in db.
+
+### AuthChangePasswordService
+
+Service that manage changing password user.
+
+# LIBS
+
+**Lib-User**
+
+Manage user collection actions.
+
+--Providers--
+
+### UserService
+
+Layer between exterior module and database.
+
+Manage action linked to user collection.
+
+### UserCredentialService
+
+Manage to check user credential send by user and compare it with db password user.
+
+_note_:
+
+Password send by user is not hashed.
+
+Password in db is hashed.
+
+------------------------------------------------
+
+**Lib-JwtRefreshToken**
+
+Manage refresh token collection actions & refresh-token actions.
+
+--Providers--
+
+### JwtRefreshTokenService
+
+Layer between exterior module and database.
+
+Manage action linked to refresh-token collection.
+
+### JwtRefreshTokenProvider
+
+Provide Refresh Token.
+Use JwtService to generate token from secret refresh token key.
+
+### JwtRefreshTokenStrategy
+
+Allow to create AuthGuard, and check is token is available.
+
+Thus we can get back decoded payload from refresh token.
+
+_note_:
+
+We can get back decoded token as parameter in controller thanks to @DecodedToken() decorator.
+
+------------------------------------------------
+
+**Lib-JwtAccessToken**
+
+Manage access-token actions.
+
+--Providers--
+
+### JwtAccessTokenProvider
+
+Provide Access Token.
+Use JwtService to generate token from secret access token key.
+
+### JwtAccessTokenStrategy
+
+Allow to create AuthGuard, and check is token is available.
+
+Thus we can get back decoded payload from access token.
+
+_note_:
+
+We can get back decoded token as parameter in controller thanks to @DecodedToken() decorator.
+
+------------------------------------------------
+
+**Lib-JwtPasswordToken**
+
+Manage password-token actions.
+
+User can use it in order to change password.
+
+Token is only accesible in passwor reset email.
+
+--Providers--
+
+### JwtPasswordTokenProvider
+
+Provide Password Token.
+Use JwtService to generate token from secret password token key.
+
+### JwtPasswordTokenStrategy
+
+Allow to create AuthGuard, and check is token is available.
+
+Thus we can get back decoded payload from password token.
+
+_note_:
+
+We can get back decoded token as parameter in controller thanks to @DecodedToken() decorator.
+
+------------------------------------------------
+
+**Lib-Email-Factory**
+
+Manage email creation & sending email.
+
+### EmailFactoryResetPassword
+
+Create email factory and send email to target.
+
+

@@ -28,6 +28,6 @@ async function bootstrap() {
     const document = documentBuilderForSwagger(app)
     SwaggerModule.setup("api", app, document)
 
-    await app.listen(3000)
+    await app.listen(getVariableEnvironment("PORT_AUTH_APP"))
 }
 bootstrap()

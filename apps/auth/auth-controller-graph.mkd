@@ -1,0 +1,146 @@
+
+POST `/register`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthRegisterService: /register
+    alt wrong format
+        AuthRegisterService->>AuthController: Error
+    end
+
+    AuthRegisterService->>UserService: check if user exist in DB
+    activate UserService
+    alt user already exist
+        UserService->>AuthRegisterService: Error
+        deactivate UserService
+        AuthRegisterService->>AuthController: Error
+    end
+
+    AuthRegisterService->>JwtRefreshTokenService: check if refresh token exist for this user
+    activate JwtRefreshTokenService
+    alt token already exist
+        JwtRefreshTokenService->>AuthRegisterService: Error
+        deactivate JwtRefreshTokenService
+        AuthRegisterService->>AuthController: Error
+    end
+
+    AuthRegisterService->>UserService: Save user in DB
+    AuthRegisterService->>AuthController: return response message
+```
+
+POST `/login`
+```mermaid
+
+sequenceDiagram
+
+    AuthController->>AuthLoginService: /login
+
+    alt wrong format
+        AuthLoginService->>AuthController: Error
+    end
+
+    alt user don't register in db 
+        UserService->>AuthLoginService: Error
+        AuthLoginService->>AuthController: Error
+    end
+
+    UserService->>AuthLoginService: pick user (email & password)
+    UserCredentialService->>AuthLoginService: check if credential are valid
+
+    alt wrong password
+        AuthLoginService->>AuthController: Error
+    end
+
+    AuthLoginService->>JwtRefreshTokenService: Change status of current refresh token (to make singleton connection)
+
+    JwtRefreshTokenProvider->>AuthLoginService: Generate Refresh token for user
+    JwtAccessTokenProvider->>AuthLoginService: Generate Access token for user
+
+    AuthLoginService->>JwtRefreshTokenService: Save Refresh token in db
+
+    AuthLoginService->>AuthController: Return access and refresh token
+```
+
+PUT `/access_token`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthRefreshTokenService: /access_token
+    alt invalid token
+        AuthRefreshTokenService->>AuthController: Error
+    end
+
+    AuthRefreshTokenService->>JwtRefreshTokenService: check if refresh token is available
+    activate JwtRefreshTokenService
+    alt token not available
+        JwtRefreshTokenService->>AuthRefreshTokenService: Error
+        deactivate JwtRefreshTokenService
+        AuthRefreshTokenService->>AuthController: Error
+    end
+
+    JwtAccessTokenProvider->>AuthRefreshTokenService: Generate Access token for user
+
+    AuthRefreshTokenService->>JwtRefreshTokenService: Save refresh token in DB
+    AuthRefreshTokenService->>AuthController: Return refresh & access token
+```
+
+POST `/logout`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthLogoutService: /logout
+
+    alt invalid token
+        AuthLogoutService->>AuthController: Error
+    end
+    alt invalid format
+        AuthLogoutService->>AuthController: Error
+    end
+
+    alt token status is already unvailable
+        AuthLogoutService->>AuthController: Error
+        JwtRefreshTokenService->>AuthLogoutService: Error
+    end
+
+    AuthLogoutService->>JwtRefreshTokenService: Change status of token in db to unavailable
+    AuthLogoutService->>AuthController: return response message
+```
+
+POST `/reset_password`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthResetPasswordService: /reset_password
+
+    alt check format email
+        AuthResetPasswordService->>AuthController: Error
+    end
+
+    JwtPasswordTokenProvider->>AuthResetPasswordService: Generate token from JwtPasswordTokenProvider
+    AuthResetPasswordService->>EmailFactoryResetPassword: Generate email with token for user
+    AuthResetPasswordService->>AuthController: response with message
+
+```
+
+POST `/change_password`
+```mermaid
+sequenceDiagram
+
+    AuthController->>AuthChangePasswordService: /change_password
+
+    alt check token format
+        AuthChangePasswordService->>AuthController: Error
+    end
+    alt check password format
+        AuthChangePasswordService->>AuthController: Error
+    end
+        alt token is not available (expired)
+        AuthChangePasswordService->>AuthController: Error
+    end
+
+    JwtPasswordTokenProvider->>AuthChangePasswordService: Decode email from token
+    AuthChangePasswordService->>UserService: Change password for this email
+
+    AuthChangePasswordService->>AuthController: response with message
+
+```
