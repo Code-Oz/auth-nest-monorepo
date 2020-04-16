@@ -9,22 +9,22 @@ import { JwtPasswordTokenStrategy } from "./providers"
 import { JwtPasswordTokenAuthGuard } from "./guards/jwt-password-token.guard"
 
 @Module({
-  imports: [
-    LibGlobalNestModule,
-    JwtModule.register({
-      secret: getVariableEnvironment("JWT_PASSWORD_TOKEN_SECRET"),
-      signOptions: { expiresIn: getVariableEnvironment("JWT_PASSWORD_TOKEN_EXPIRE_IN") },
-    }),
-  ],
-  providers: [
-    JwtPasswordTokenProvider,
-    JwtPasswordTokenStrategy,
-    JwtPasswordTokenAuthGuard,
-  ],
-  exports: [
-    JwtPasswordTokenProvider,
-    JwtPasswordTokenStrategy,
-    JwtPasswordTokenAuthGuard,
-  ],
+    imports: [
+        LibGlobalNestModule,
+        JwtModule.register({
+            secret: getVariableEnvironment("JWT_PASSWORD_TOKEN_SECRET"),
+            signOptions: { expiresIn: getVariableEnvironment("JWT_PASSWORD_TOKEN_EXPIRE_IN") },
+        }),
+    ],
+    providers: [
+        JwtPasswordTokenProvider,
+        JwtPasswordTokenStrategy,
+        JwtPasswordTokenAuthGuard,
+    ],
+    exports: [
+        JwtPasswordTokenProvider,
+        JwtPasswordTokenStrategy,
+        JwtPasswordTokenAuthGuard,
+    ],
 })
 export class JwtPasswordTokenModule {}

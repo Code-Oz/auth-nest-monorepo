@@ -10,18 +10,18 @@ import { UserSchema } from "./schemas/user.schema"
 import { USERS_COLLECTION } from "./types/collection.types"
 
 @Module({
-  imports: [
-    LibGlobalNestModule,
-    MongooseModule.forRoot(getVariableEnvironment("MONGO_DB_STRING_CONNECTION")),
-    MongooseModule.forFeature([{ name: USERS_COLLECTION, schema: UserSchema }]),
-  ],
-  providers: [
-    UserService,
-    UserCredentialService,
-  ],
-  exports: [
-    UserService,
-    UserCredentialService,
-  ],
+    imports: [
+        LibGlobalNestModule,
+        MongooseModule.forRoot(getVariableEnvironment("MONGO_DB_STRING_CONNECTION")),
+        MongooseModule.forFeature([{ name: USERS_COLLECTION, schema: UserSchema }]),
+    ],
+    providers: [
+        UserService,
+        UserCredentialService,
+    ],
+    exports: [
+        UserService,
+        UserCredentialService,
+    ],
 })
 export class UserModule {}

@@ -11,41 +11,41 @@ import { postResetPasswordResponseMessage } from "../controllers/response-messag
 
 @Injectable()
 export class AuthResetPasswordService {
-  constructor(
-    private userService: UserService,
-    private emailFactoryService: EmailFactoryService,
-    private configService: ConfigService,
-    private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
-  ) {}
+    constructor(
+        private userService: UserService,
+        private emailFactoryService: EmailFactoryService,
+        private configService: ConfigService,
+        private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
+    ) {}
 
-  async postResetPassword(userEmailDto: UserEmailDto): Promise<MessageResponse> {
-      const emailSender = this.configService.get<string>("EMAIL_SENDER")
-      const passSender = this.configService.get<string>("PASSWORD_SENDER")
+    async postResetPassword(userEmailDto: UserEmailDto): Promise<MessageResponse> {
+        const emailSender = this.configService.get<string>("EMAIL_SENDER")
+        const passSender = this.configService.get<string>("PASSWORD_SENDER")
 
-      if (!emailSender || !passSender) {
-        throw new Error("Environment variable don't exist for EMAIL_SENDER or PASSWORD_SENDER")
-      }
+        if (!emailSender || !passSender) {
+            throw new Error("Environment variable don't exist for EMAIL_SENDER or PASSWORD_SENDER")
+        }
 
-      const { email } = userEmailDto
-      const isUserRegistered = await this.userService.isExistUser(email)
+        const { email } = userEmailDto
+        const isUserRegistered = await this.userService.isExistUser(email)
 
-      if (isUserRegistered) {
-        const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: email })
-        await this.emailFactoryService.sendEmailResetPassword(
-            email,
-            {
-              email: email,
-              token: resetPasswordToken.password_token,
-            },
-            {
-              user: emailSender, pass: passSender,
-            },
-        )
-      }
+        if (isUserRegistered) {
+            const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: email })
 
-      return {
-        message: postResetPasswordResponseMessage(email),
-      }
-  }
+            await this.emailFactoryService.sendEmailResetPassword(
+                email,
+                {
+                email: email,
+                token: resetPasswordToken.password_token,
+                },
+                {
+                user: emailSender, pass: passSender,
+                },
+            )
+        }
 
+        return {
+            message: postResetPasswordResponseMessage(email),
+        }
+    }
 }

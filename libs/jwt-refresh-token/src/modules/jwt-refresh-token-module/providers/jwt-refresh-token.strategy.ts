@@ -6,14 +6,14 @@ import { getVariableEnvironment } from "@app/lib-global-nest"
 
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh-token") {
-  constructor() {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: getVariableEnvironment("JWT_REFRESH_TOKEN_SECRET"),
-    })
-  }
-  async validate(payload: any) {
-    return payload
-  }
+    constructor() {
+        super({
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: getVariableEnvironment("JWT_REFRESH_TOKEN_SECRET"),
+        })
+    }
+    async validate(payload: any) {
+            return payload
+    }
 }

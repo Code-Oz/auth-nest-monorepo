@@ -11,7 +11,7 @@ export class JwtRefreshTokenProvider {
 
     async provideRefreshToken(payload: RefreshTokenPayload) {
         return {
-          refresh_token: this.jwtService.sign(payload),
+            refresh_token: this.jwtService.sign(payload),
         }
     }
 

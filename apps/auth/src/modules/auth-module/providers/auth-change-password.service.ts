@@ -9,19 +9,19 @@ import { postChangePasswordResponseMessage } from "../controllers/response-messa
 
 @Injectable()
 export class AuthChangePasswordService {
-  constructor(
-    private userService: UserService,
-  ) {}
+    constructor(
+        private userService: UserService,
+    ) {}
 
-  async postChangePassword(changePasswordDto: ChangePasswordDto, passwordTokenPayload: PasswordTokenPayload): Promise<MessageResponse> {
-    const { password } = changePasswordDto
-    const { userEmail } = passwordTokenPayload
+    async postChangePassword(changePasswordDto: ChangePasswordDto, passwordTokenPayload: PasswordTokenPayload): Promise<MessageResponse> {
+        const { password } = changePasswordDto
+        const { userEmail } = passwordTokenPayload
 
-    await this.userService.changeUserPassword(userEmail, password)
+        await this.userService.changeUserPassword(userEmail, password)
 
-    return {
-      message: postChangePasswordResponseMessage,
+        return {
+            message: postChangePasswordResponseMessage,
+        }
     }
-  }
 
 }

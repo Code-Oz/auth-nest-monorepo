@@ -17,7 +17,6 @@ export interface RefreshTokenDocument extends Document {
 }
 
 export class RefreshTokenCreationDto {
-
     @IsNotEmpty()
     _id: string
 

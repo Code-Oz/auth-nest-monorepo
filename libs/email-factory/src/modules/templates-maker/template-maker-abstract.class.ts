@@ -1,7 +1,8 @@
 import { resolve } from "path"
 
 type HtmlExtension = ".html"
-const htmlExtension: HtmlExtension = ".html"
+const HTML_EXTENSION: HtmlExtension = ".html"
+
 interface HandleBarsOptions {
     viewEngine: {
         extName: HtmlExtension,
@@ -20,7 +21,7 @@ export abstract class TemplateMakerAbstract<TContext extends { [key: string]: an
         protected subject: string,
         protected name: string,
         protected templatePath: string = resolve("./templates/"),
-        protected extension: HtmlExtension = htmlExtension,
+        protected extension: HtmlExtension = HTML_EXTENSION,
     ) {}
 
     public getHandleBarsOptions(): HandleBarsOptions {

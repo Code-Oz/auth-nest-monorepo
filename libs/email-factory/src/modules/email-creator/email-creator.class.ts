@@ -2,7 +2,7 @@ import { createTransport } from "nodemailer"
 import * as Mail from "nodemailer/lib/mailer"
 const hbs = require("nodemailer-express-handlebars")
 
-import { EmailAuthor } from "../author/email-author.class"
+import { EmailAuthor } from "../author"
 import { TemplateMakerAbstract } from "../templates-maker/template-maker-abstract.class"
 
 export class EmailCreator<TContext extends { [key: string]: any }> {
@@ -31,5 +31,4 @@ export class EmailCreator<TContext extends { [key: string]: any }> {
         }
         await this.transporter.sendMail(mailOptions)
     }
-
 }

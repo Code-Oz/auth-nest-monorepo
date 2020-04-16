@@ -7,23 +7,22 @@ import { postLogoutResponseMessage } from "../controllers/response-messages/post
 
 @Injectable()
 export class AuthLogoutService {
-  constructor(
-    private jwtRefreshTokenService: JwtRefreshTokenService,
-  ) {}
+    constructor(
+        private jwtRefreshTokenService: JwtRefreshTokenService,
+    ) {}
 
-  async postLogout(refreshTokenPayload: RefreshTokenPayload): Promise<MessageResponse> {
-    const { userEmail, refreshTokenId } = refreshTokenPayload
-    const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
+    async postLogout(refreshTokenPayload: RefreshTokenPayload): Promise<MessageResponse> {
+        const { userEmail, refreshTokenId } = refreshTokenPayload
+        const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
 
-    if (!isTokenAvailable) {
-      throw new TokenNotAvailableException()
+        if (!isTokenAvailable) {
+        throw new TokenNotAvailableException()
+        }
+
+        await this.jwtRefreshTokenService.changeStatusToken(userEmail, refreshTokenId)
+
+        return {
+        message: postLogoutResponseMessage,
+        }
     }
-
-    await this.jwtRefreshTokenService.changeStatusToken(userEmail, refreshTokenId)
-
-    return {
-      message: postLogoutResponseMessage,
-    }
-  }
-
 }

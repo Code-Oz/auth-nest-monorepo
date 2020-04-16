@@ -18,26 +18,26 @@ import { AuthResetPasswordService } from "./providers/auth-reset-password.servic
 import { AuthChangePasswordService } from "./providers/auth-change-password.service"
 
 @Module({
-  imports: [
-    LibGlobalNestModule,
-    UserModule,
-    JwtAccessTokenModule,
-    JwtRefreshTokenModule,
-    JwtPasswordTokenModule,
-    EmailFactoryModule,
-  ],
-  controllers: [ AuthController ],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: GlobalExceptionFilter,
-    },
-    AuthRefreshTokenService,
-    AuthRegisterService,
-    AuthLoginService,
-    AuthLogoutService,
-    AuthResetPasswordService,
-    AuthChangePasswordService,
-  ],
+    imports: [
+        LibGlobalNestModule,
+        UserModule,
+        JwtAccessTokenModule,
+        JwtRefreshTokenModule,
+        JwtPasswordTokenModule,
+        EmailFactoryModule,
+    ],
+    controllers: [ AuthController ],
+    providers: [
+        {
+        provide: APP_FILTER,
+        useClass: GlobalExceptionFilter,
+        },
+        AuthRefreshTokenService,
+        AuthRegisterService,
+        AuthLoginService,
+        AuthLogoutService,
+        AuthResetPasswordService,
+        AuthChangePasswordService,
+    ],
 })
 export class AuthModule {}
