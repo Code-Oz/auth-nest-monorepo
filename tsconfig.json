@@ -11,40 +11,40 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@app/user": [
+      "@lib/user": [
         "libs/user/src"
       ],
-      "@app/user/*": [
+      "@lib/user/*": [
         "libs/user/src/*"
       ],
-      "@app/jwt-access-token": [
+      "@lib/jwt-access-token": [
         "libs/jwt-access-token/src"
       ],
-      "@app/jwt-access-token/*": [
+      "@lib/jwt-access-token/*": [
         "libs/jwt-access-token/src/*"
       ],
-      "@app/jwt-refresh-token": [
+      "@lib/jwt-refresh-token": [
         "libs/jwt-refresh-token/src"
       ],
-      "@app/jwt-refresh-token/*": [
+      "@lib/jwt-refresh-token/*": [
         "libs/jwt-refresh-token/src/*"
       ],
-      "@app/lib-global-nest": [
-        "libs/lib-global-nest/src"
+      "@lib/global-nest": [
+        "libs/global-nest/src"
       ],
-      "@app/lib-global-nest/*": [
-        "libs/lib-global-nest/src/*"
+      "@lib/global-nest/*": [
+        "libs/global-nest/src/*"
       ],
-      "@app/jwt-password-token": [
+      "@lib/jwt-password-token": [
         "libs/jwt-password-token/src"
       ],
-      "@app/jwt-password-token/*": [
+      "@lib/jwt-password-token/*": [
         "libs/jwt-password-token/src/*"
       ],
-      "@app/email-factory": [
+      "@lib/email-factory": [
         "libs/email-factory/src"
       ],
-      "@app/email-factory/*": [
+      "@lib/email-factory/*": [
         "libs/email-factory/src/*"
       ]
     }

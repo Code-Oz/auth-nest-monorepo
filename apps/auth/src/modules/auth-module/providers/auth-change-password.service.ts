@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 
-import { PasswordTokenPayload } from "@app/jwt-password-token"
-import { UserService } from "@app/user"
+import { PasswordTokenPayload } from "@lib/jwt-password-token"
+import { UserService } from "@lib/user"
 
 import { ChangePasswordDto } from "../validations/change-password.dto"
 import { MessageResponse } from "../types/message-response.types"

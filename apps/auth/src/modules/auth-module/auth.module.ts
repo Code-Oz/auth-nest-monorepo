@@ -2,12 +2,12 @@ import { Module } from "@nestjs/common"
 import { APP_FILTER } from "@nestjs/core"
 import { ConfigModule } from "@nestjs/config"
 
-import { UserModule } from "@app/user"
-import { GlobalExceptionFilter, LibGlobalNestModule } from "@app/lib-global-nest"
-import { JwtAccessTokenModule } from "@app/jwt-access-token"
-import { JwtRefreshTokenModule } from "@app/jwt-refresh-token"
-import { JwtPasswordTokenModule } from "@app/jwt-password-token"
-import { EmailFactoryModule } from "@app/email-factory"
+import { UserModule } from "@lib/user"
+import { GlobalExceptionFilter, GlobalNestModule } from "@lib/global-nest"
+import { JwtAccessTokenModule } from "@lib/jwt-access-token"
+import { JwtRefreshTokenModule } from "@lib/jwt-refresh-token"
+import { JwtPasswordTokenModule } from "@lib/jwt-password-token"
+import { EmailFactoryModule } from "@lib/email-factory"
 
 import { AuthController } from "./controllers/auth.controller"
 import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
@@ -19,7 +19,7 @@ import { AuthChangePasswordService } from "./providers/auth-change-password.serv
 
 @Module({
     imports: [
-        LibGlobalNestModule,
+        GlobalNestModule,
         UserModule,
         JwtAccessTokenModule,
         JwtRefreshTokenModule,

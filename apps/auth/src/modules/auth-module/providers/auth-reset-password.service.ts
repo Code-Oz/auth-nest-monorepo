@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 
-import { UserService } from "@app/user"
-import { JwtPasswordTokenProvider } from "@app/jwt-password-token"
-import { EmailFactoryService } from "@app/email-factory"
+import { UserService } from "@lib/user"
+import { JwtPasswordTokenProvider } from "@lib/jwt-password-token"
+import { EmailFactoryService } from "@lib/email-factory"
 
 import { UserEmailDto } from "../validations/user-email.dto"
 import { MessageResponse } from "../types/message-response.types"

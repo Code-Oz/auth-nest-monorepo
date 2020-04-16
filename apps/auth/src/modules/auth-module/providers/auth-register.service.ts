@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 
-import { UserService } from "@app/user"
-import { JwtRefreshTokenService } from "@app/jwt-refresh-token"
+import { UserService } from "@lib/user"
+import { JwtRefreshTokenService } from "@lib/jwt-refresh-token"
 
 import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"

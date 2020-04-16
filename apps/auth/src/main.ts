@@ -3,7 +3,7 @@ import { NestFactory } from "@nestjs/core"
 import { ValidationPipe } from "@nestjs/common"
 import { SwaggerModule } from "@nestjs/swagger"
 
-import { getVariableEnvironment } from "@app/lib-global-nest"
+import { getVariableEnvironment } from "@lib/global-nest"
 
 import { AuthModule } from "./modules/auth-module/auth.module"
 import { documentBuilderForSwagger } from "./modules/auth-module/swagger/document-builder/main"

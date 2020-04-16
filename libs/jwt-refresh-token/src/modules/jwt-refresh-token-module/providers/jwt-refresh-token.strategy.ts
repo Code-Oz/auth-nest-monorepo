@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy } from "passport-jwt"
 import { PassportStrategy } from "@nestjs/passport"
 import { Injectable } from "@nestjs/common"
 
-import { getVariableEnvironment } from "@app/lib-global-nest"
+import { getVariableEnvironment } from "@lib/global-nest"
 
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh-token") {

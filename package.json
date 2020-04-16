@@ -92,18 +92,18 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "@app/user/(.*)": "<rootDir>/libs/user/src/$1",
-      "@app/user": "<rootDir>/libs/user/src",
-      "@app/jwt-access-token/(.*)": "<rootDir>/libs/jwt-access-token/src/$1",
-      "@app/jwt-access-token": "<rootDir>/libs/jwt-access-token/src",
-      "@app/jwt-refresh-token/(.*)": "<rootDir>/libs/jwt-refresh-token/src/$1",
-      "@app/jwt-refresh-token": "<rootDir>/libs/jwt-refresh-token/src",
-      "@app/lib-global-nest/(.*)": "<rootDir>/libs/lib-global-nest/src/$1",
-      "@app/lib-global-nest": "<rootDir>/libs/lib-global-nest/src",
-      "@app/jwt-password-token/(.*)": "<rootDir>/libs/jwt-password-token/src/$1",
-      "@app/jwt-password-token": "<rootDir>/libs/jwt-password-token/src",
-      "@app/email-factory/(.*)": "<rootDir>/libs/email-factory/src/$1",
-      "@app/email-factory": "<rootDir>/libs/email-factory/src"
+      "@lib/user/(.*)": "<rootDir>/libs/user/src/$1",
+      "@lib/user": "<rootDir>/libs/user/src",
+      "@lib/jwt-access-token/(.*)": "<rootDir>/libs/jwt-access-token/src/$1",
+      "@lib/jwt-access-token": "<rootDir>/libs/jwt-access-token/src",
+      "@lib/jwt-refresh-token/(.*)": "<rootDir>/libs/jwt-refresh-token/src/$1",
+      "@lib/jwt-refresh-token": "<rootDir>/libs/jwt-refresh-token/src",
+      "@lib/global-nest/(.*)": "<rootDir>/libs/global-nest/src/$1",
+      "@lib/global-nest": "<rootDir>/libs/global-nest/src",
+      "@lib/jwt-password-token/(.*)": "<rootDir>/libs/jwt-password-token/src/$1",
+      "@lib/jwt-password-token": "<rootDir>/libs/jwt-password-token/src",
+      "@lib/email-factory/(.*)": "<rootDir>/libs/email-factory/src/$1",
+      "@lib/email-factory": "<rootDir>/libs/email-factory/src"
     }
   }
 }

@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { JwtModule } from "@nestjs/jwt"
 import { MongooseModule } from "@nestjs/mongoose"
 
-import { getVariableEnvironment, LibGlobalNestModule } from "@app/lib-global-nest"
+import { getVariableEnvironment, GlobalNestModule } from "@lib/global-nest"
 
 import { JwtRefreshTokenProvider } from "./providers/jwt-refresh-token.provider"
 import { JwtRefreshTokenStrategy } from "./providers/jwt-refresh-token.strategy"
@@ -13,7 +13,7 @@ import { RefreshTokenSchema } from "./schemas/refresh-token.schema"
 
 @Module({
     imports: [
-        LibGlobalNestModule,
+        GlobalNestModule,
         JwtModule.register({
             secret: getVariableEnvironment("JWT_REFRESH_TOKEN_SECRET"),
             signOptions: { expiresIn: getVariableEnvironment("JWT_REFRESH_TOKEN_EXPIRE_IN") },
@@ -35,7 +35,6 @@ import { RefreshTokenSchema } from "./schemas/refresh-token.schema"
     exports: [
         JwtRefreshTokenProvider,
         JwtRefreshTokenService,
-        JwtRefreshTokenStrategy,
         JwtRefreshTokenAuthGuard,
     ],
 })

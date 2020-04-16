@@ -2,9 +2,9 @@ import { Types } from "mongoose"
 
 import { Injectable } from "@nestjs/common"
 
-import { UserService, UserCredentialService, UserDocument } from "@app/user"
-import { JwtAccessTokenProvider } from "@app/jwt-access-token"
-import { JwtRefreshTokenProvider, JwtRefreshTokenService } from "@app/jwt-refresh-token"
+import { UserService, UserCredentialService, UserDocument } from "@lib/user"
+import { JwtAccessTokenProvider } from "@lib/jwt-access-token"
+import { JwtRefreshTokenProvider, JwtRefreshTokenService } from "@lib/jwt-refresh-token"
 
 import { ProvidersToken } from "../types/providers-token.type"
 import { UserConnectionDto } from "../validations/user-connection.dto"

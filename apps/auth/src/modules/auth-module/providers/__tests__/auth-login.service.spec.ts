@@ -1,10 +1,10 @@
 
 import { Test } from "@nestjs/testing"
-import { JwtAccessTokenProvider } from "@app/jwt-access-token"
-import { JwtRefreshTokenProvider } from "@app/jwt-refresh-token"
-import { JwtRefreshTokenService } from "@app/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
-import { UserCredentialService } from "@app/user/modules/user-module/providers/user-credential.service"
-import { UserService } from "@app/user"
+import { JwtAccessTokenProvider } from "@lib/jwt-access-token"
+import { JwtRefreshTokenProvider } from "@lib/jwt-refresh-token"
+import { JwtRefreshTokenService } from "@lib/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
+import { UserCredentialService } from "@lib/user/modules/user-module/providers/user-credential.service"
+import { UserService } from "@lib/user"
 
 import { userServiceMock } from "../__mocks__/user-service.mock"
 import { jwtRefreshTokenServiceMock } from "../__mocks__/jwt-refresh-token-service.mock"

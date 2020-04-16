@@ -1,6 +1,6 @@
 
 import { Test } from "@nestjs/testing"
-import { JwtRefreshTokenService } from "@app/jwt-refresh-token"
+import { JwtRefreshTokenService } from "@lib/jwt-refresh-token"
 
 import { AuthLogoutService } from "../auth-logout.service"
 import { jwtRefreshTokenServiceMock } from "../__mocks__/jwt-refresh-token-service.mock"

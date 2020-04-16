@@ -1,9 +1,9 @@
 import { Controller, UseGuards, Post, Body, UseFilters } from "@nestjs/common"
 import { ApiBearerAuth, ApiOperation, ApiResponse } from "@nestjs/swagger"
 
-import { DecodedToken, ClassValidationExceptionFilter, HashPassword } from "@app/lib-global-nest"
-import { JwtRefreshTokenAuthGuard, RefreshTokenPayload } from "@app/jwt-refresh-token"
-import { JwtPasswordTokenAuthGuard, PasswordTokenPayload } from "@app/jwt-password-token"
+import { DecodedToken, ClassValidationExceptionFilter, HashPassword } from "@lib/global-nest"
+import { JwtRefreshTokenAuthGuard, RefreshTokenPayload } from "@lib/jwt-refresh-token"
+import { JwtPasswordTokenAuthGuard, PasswordTokenPayload } from "@lib/jwt-password-token"
 
 import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserRegisterDto } from "../validations/user-register.dto"

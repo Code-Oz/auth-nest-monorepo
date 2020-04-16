@@ -1,6 +1,6 @@
 
 import { Test } from "@nestjs/testing"
-import { UserService } from "@app/user"
+import { UserService } from "@lib/user"
 
 import { userServiceMock } from "../__mocks__/user-service.mock"
 import { AuthChangePasswordService } from "../auth-change-password.service"

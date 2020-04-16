@@ -6,9 +6,9 @@ import { applyEnvFile } from "./configs"
 @Module({
     imports: [
         ConfigModule.forRoot({
-          isGlobal: true,
-          envFilePath: applyEnvFile(),
+            isGlobal: true,
+            envFilePath: applyEnvFile(),
         }),
     ],
 })
-export class LibGlobalNestModule {}
+export class GlobalNestModule {}

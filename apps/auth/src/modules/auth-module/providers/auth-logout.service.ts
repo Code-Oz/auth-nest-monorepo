@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 
-import { JwtRefreshTokenService, RefreshTokenPayload, TokenNotAvailableException } from "@app/jwt-refresh-token"
+import { JwtRefreshTokenService, RefreshTokenPayload, TokenNotAvailableException } from "@lib/jwt-refresh-token"
 
 import { MessageResponse } from "../types/message-response.types"
 import { postLogoutResponseMessage } from "../controllers/response-messages/post-logout-response"

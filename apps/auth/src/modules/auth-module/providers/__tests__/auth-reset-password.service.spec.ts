@@ -1,9 +1,9 @@
 
 import { Test } from "@nestjs/testing"
 import { ConfigService } from "@nestjs/config"
-import { EmailFactoryService } from "@app/email-factory"
-import { JwtPasswordTokenProvider } from "@app/jwt-password-token"
-import { UserService } from "@app/user"
+import { EmailFactoryService } from "@lib/email-factory"
+import { JwtPasswordTokenProvider } from "@lib/jwt-password-token"
+import { UserService } from "@lib/user"
 
 import { AuthResetPasswordService } from "../auth-reset-password.service"
 import { configServiceMock } from "../__mocks__/config-service.mock"
