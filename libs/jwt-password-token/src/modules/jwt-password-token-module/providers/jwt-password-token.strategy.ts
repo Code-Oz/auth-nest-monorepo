@@ -4,6 +4,8 @@ import { Injectable } from "@nestjs/common"
 
 import { getVariableEnvironment } from "@lib/global-nest"
 
+import { PasswordTokenPayload } from "../types"
+
 @Injectable()
 export class JwtPasswordTokenStrategy extends PassportStrategy(Strategy, "password-token") {
     constructor() {
@@ -14,7 +16,7 @@ export class JwtPasswordTokenStrategy extends PassportStrategy(Strategy, "passwo
         })
     }
 
-    async validate(payload: any) {
+    async validate(payload: PasswordTokenPayload) {
         return payload
     }
 }

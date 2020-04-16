@@ -4,6 +4,8 @@ import { Injectable } from "@nestjs/common"
 
 import { getVariableEnvironment } from "@lib/global-nest"
 
+import { RefreshTokenPayload } from "../types"
+
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh-token") {
     constructor() {
@@ -13,7 +15,8 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh
             secretOrKey: getVariableEnvironment("JWT_REFRESH_TOKEN_SECRET"),
         })
     }
-    async validate(payload: any) {
-            return payload
+
+    async validate(payload: RefreshTokenPayload) {
+        return payload
     }
 }
