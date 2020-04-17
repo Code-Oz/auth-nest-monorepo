@@ -21,13 +21,13 @@ export class AuthRegisterService {
         const isTokenExist = await this.jwtRefreshTokenService.isTokenExist(email)
 
         if (isExistingUser || isTokenExist) {
-        throw new UserAlreadyExistException()
+            throw new UserAlreadyExistException()
         }
 
         await this.userService.createUser({ email, password })
 
         return {
-        message: postRegisterResponseMessage,
+            message: postRegisterResponseMessage,
         }
     }
 }

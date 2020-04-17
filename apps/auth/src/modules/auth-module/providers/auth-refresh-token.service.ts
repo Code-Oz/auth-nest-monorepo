@@ -17,13 +17,13 @@ export class AuthRefreshTokenService {
         const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
 
         if (!isTokenAvailable) {
-        throw new TokenNotAvailableException()
+            throw new TokenNotAvailableException()
         }
 
         const { access_token } = await this.jwtAccessTokenProvider.provideAccessToken({ userId, userEmail })
 
         return {
-        access_token,
+            access_token,
         }
     }
 }

@@ -16,13 +16,13 @@ export class AuthLogoutService {
         const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
 
         if (!isTokenAvailable) {
-        throw new TokenNotAvailableException()
+            throw new TokenNotAvailableException()
         }
 
         await this.jwtRefreshTokenService.changeStatusToken(userEmail, refreshTokenId)
 
         return {
-        message: postLogoutResponseMessage,
+            message: postLogoutResponseMessage,
         }
     }
 }

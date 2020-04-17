@@ -33,13 +33,13 @@ export class AuthResetPasswordService {
             const resetPasswordToken = await this.jwtPasswordTokenProvider.providePasswordToken({ userEmail: email })
 
             await this.emailFactoryService.sendEmailResetPassword(
-                email,
+                    email,
                 {
-                email: email,
-                token: resetPasswordToken.password_token,
+                    email: email,
+                    token: resetPasswordToken.password_token,
                 },
                 {
-                user: emailSender, pass: passSender,
+                    user: emailSender, pass: passSender,
                 },
             )
         }

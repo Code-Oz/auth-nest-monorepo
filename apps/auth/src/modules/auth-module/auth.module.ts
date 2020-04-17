@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common"
 import { APP_FILTER } from "@nestjs/core"
-import { ConfigModule } from "@nestjs/config"
 
 import { UserModule } from "@lib/user"
 import { GlobalExceptionFilter, GlobalNestModule } from "@lib/global-nest"
