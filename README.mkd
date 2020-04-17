@@ -107,8 +107,8 @@ TODOS:
 - [ ] Class validation at mongo level?
 - [ ] Revoir les types de swagger
 - [ ] public et private function class
-- [ ] Excpetion filter global default
-- [ ] Error handling if user email credential are wrong in .env or forget to allow secure app 
+- [x] Exception filter global default
+- [x] Error handling if user email credential are wrong in .env or forget to allow secure app 
 - [ ] Formater ce README en mode propre
 - [ ] Revoir les devDependencies and dependencie in package.json
 
