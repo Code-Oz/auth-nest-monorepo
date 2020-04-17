@@ -8,6 +8,8 @@ import { getVariableEnvironment } from "@lib/global-nest"
 import { AuthModule } from "./modules/auth-module/auth.module"
 import { documentBuilderForSwagger } from "./modules/auth-module/swagger/document-builder/main"
 
+declare const module: any
+
 async function bootstrap() {
     const app = await NestFactory.create(AuthModule)
     app.useGlobalPipes(new ValidationPipe({
@@ -24,6 +26,11 @@ async function bootstrap() {
             max: getVariableEnvironment("RATE_LIMIT_MAX"),
         }),
     )
+
+    if (module.hot) {
+        module.hot.accept()
+        module.hot.dispose(() => app.close())
+    }
 
     const document = documentBuilderForSwagger(app)
     SwaggerModule.setup("api", app, document)
