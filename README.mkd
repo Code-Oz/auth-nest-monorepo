@@ -2,7 +2,7 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-What is this app?
+## What is this app?
 
 This application is a project created by me, it's an authentification project with email and password with NestJS. Thus we can easily link any api that need authentification actions (like api that need an authentification).
 
@@ -27,17 +27,19 @@ If you want to link any api with access token security, you just need to use `@U
 
 This Nest Application using `monorepo mode`, check this for more information about architecture: https://docs.nestjs.com/cli/monorepo
 
-I) Prerequisite
+## I) Prerequisite
 
 - Install MongoDb
 
-II) How to install ?
+## II) How to install ?
 
-1) Install all dependencies
+### 1) Install all dependencies
 
-`npm install`
+```bash
+$ npm install
+```
 
-2) Create `.dev.env` & `.test.env`
+### 2) Create `.dev.env` & `.test.env`
 
 `.dev.env` contains all variables environment for dev.
 
@@ -50,7 +52,7 @@ I gave you a fake `.example.env` in order to not forget any environment variable
 
 Each variables have purpose description.
 
-3) Create or use gmail adress
+### 3) Create or use gmail adress
 
 In order to send email reset password, we need a valid gmail adress (only work for gmail adress)
 
@@ -59,29 +61,33 @@ Don't forget to allow  **Less secure app access** from this gmail email.
 _Check this https://hotter.io/docs/email-accounts/secure-app-gmail/ for instruction._
 
 
-4) Run application:
+### 4) Run application:
 
-`npm run start:dev`
+```bash
+$ npm run start:dev
+```
 
-5) Learn how to use application:
+### 5) Learn how to use application:
 
 Access to Swagger documentation at `http://localhost:${PORT_AUTH_APPS}/api`
 
 Read `auth-controller-graph.mdk` in `\apps\auth\auth-controller-graph.mkd` for more details about business logic.
 
 
-III) Testing:
+## III) Testing:
 
 I repeat :
 *Dont' forget* to use different mongo string connection for test env file & dev env file, otherwise your dbs will be deleted each time you run test.
 
-run `npm run test`
+```bash
+$ npm run test
+```
 
 Be careful, don't remove `--runInBand` flag, since test has to be run sequentially, otherwise test E2E will be in confilct since their are using and handle the same db.
 
 For now coverage are arround 90%.
 
-IV) Things to know
+## IV) Things to know
 
 Application use rate limit, based on configuration parameters.
 
@@ -89,27 +95,24 @@ We use a `ClassValidation` exception filter for all DTO class from user request 
 
 Thanks to JwtStrategy we can use AuthGuard based on these strategy in order to validate validity of Jwt token directly in AuthGuard.
 
-And we can also get directly the decoded payload jwt token at parameter level in controller, with @DecodedToken().
+And we can also get directly the decoded payload jwt token at parameter level in controller, with @DecodedToken(), thanks to Jwtstategy (we can get request.user thanks to this).
 
 We use `HashPassword` decorator in order to hash user password form user request at controller level.
 
 We use a lot of Swagger decorator in controller.
 
-V) Add api that require access token authorization
+## V) Add api that require access token authorization
 
 If you want to link any api with access token security, you just need to use `@UseGuards(JwtAccessTokenAuthGuard)` at controller level.
 
 If you want to get payload from this, act like other strategy and use `@DecodedToken()` at controller level as parameter.
 
-TODOS:
+## VI) TODOS:
 
-- [ ] Check if user is banned
-- [ ] Class validation at mongo level?
 - [x] public et private function class
 - [x] Exception filter global default
 - [x] Add hot reload
 - [x] Error handling if user email credential are wrong in .env or forget to allow secure app 
-- [ ] Formater ce README en mode propre
 
 - [ ] Create api hello
 - [ ] Implement front
@@ -117,3 +120,10 @@ TODOS:
 - [ ] Implement Docker
 - [ ] Revoir les devDependencies and dependencie in package.json
 - [ ] Start prod
+
+<!-- Pour la V1 do below>
+<!-- - [ ] Handle mongo db error -->
+<!-- - [ ] Validation document mongo // Note essential since all save are based on DTO class and validate at controller level-->
+<!-- Next feature => create role systeme -->
+<!-- Next feature => add path to change roles of user -->
+<!-- [ ] Next feature => create route for user ban (don't forget to check if user is banned in some route) and invalid all refresh token for email user, if you want to do that, need to add role system before ! and add route for ban user in another controller -->
