@@ -9,7 +9,7 @@ export class JwtRefreshTokenProvider {
         private jwtService: JwtService,
     ) {}
 
-    async provideRefreshToken(payload: RefreshTokenPayload) {
+    public async provideRefreshToken(payload: RefreshTokenPayload) {
         return {
             refresh_token: this.jwtService.sign(payload),
         }

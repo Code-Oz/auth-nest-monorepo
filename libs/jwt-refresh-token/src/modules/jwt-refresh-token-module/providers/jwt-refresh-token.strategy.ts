@@ -16,7 +16,7 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "refresh
         })
     }
 
-    async validate(payload: RefreshTokenPayload) {
+    public async validate(payload: RefreshTokenPayload) {
         return payload
     }
 }

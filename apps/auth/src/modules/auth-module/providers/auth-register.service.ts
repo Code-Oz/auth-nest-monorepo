@@ -15,7 +15,7 @@ export class AuthRegisterService {
         private userService: UserService,
     ) {}
 
-    async postRegister(userConnectionDto: UserConnectionDto): Promise<MessageResponse> {
+    public async postRegister(userConnectionDto: UserConnectionDto): Promise<MessageResponse> {
         const { email, password } = userConnectionDto
         const isExistingUser = await this.userService.isExistUser(email)
         const isTokenExist = await this.jwtRefreshTokenService.isTokenExist(email)

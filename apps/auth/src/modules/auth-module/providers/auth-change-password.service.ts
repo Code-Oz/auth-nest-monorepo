@@ -13,7 +13,7 @@ export class AuthChangePasswordService {
         private userService: UserService,
     ) {}
 
-    async postChangePassword(changePasswordDto: ChangePasswordDto, passwordTokenPayload: PasswordTokenPayload): Promise<MessageResponse> {
+    public async postChangePassword(changePasswordDto: ChangePasswordDto, passwordTokenPayload: PasswordTokenPayload): Promise<MessageResponse> {
         const { password } = changePasswordDto
         const { userEmail } = passwordTokenPayload
 

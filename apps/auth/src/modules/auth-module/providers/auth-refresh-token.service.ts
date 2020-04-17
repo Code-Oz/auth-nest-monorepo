@@ -12,7 +12,7 @@ export class AuthRefreshTokenService {
         private jwtRefreshTokenService: JwtRefreshTokenService,
     ) {}
 
-    async postAccessToken(refreshTokenPayload: RefreshTokenPayload): Promise<AccessToken> {
+    public async postAccessToken(refreshTokenPayload: RefreshTokenPayload): Promise<AccessToken> {
         const { userId, userEmail, refreshTokenId } = refreshTokenPayload
         const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
 

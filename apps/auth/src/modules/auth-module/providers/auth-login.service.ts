@@ -20,7 +20,7 @@ export class AuthLoginService {
         private jwtRefreshTokenService: JwtRefreshTokenService,
     ) {}
 
-    async postLogin(userConnectionDto: UserConnectionDto): Promise<ProvidersToken> {
+    public async postLogin(userConnectionDto: UserConnectionDto): Promise<ProvidersToken> {
         const { email } = userConnectionDto
 
         const user = await this.userService.findUserByEmail(email)

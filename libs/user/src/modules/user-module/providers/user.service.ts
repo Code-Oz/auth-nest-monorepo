@@ -12,12 +12,12 @@ export class UserService {
         @InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>,
     ) {}
 
-    async createUser(user: UserCreationDto): Promise<UserDocument> {
+    public async createUser(user: UserCreationDto): Promise<UserDocument> {
         const createdUser = new this.userModel(user)
         return await createdUser.save()
     }
 
-    async isExistUser(email: string): Promise<boolean> {
+    public async isExistUser(email: string): Promise<boolean> {
         const user = await this.findUserByEmail(email)
         return !!user
     }
@@ -26,7 +26,7 @@ export class UserService {
         return await this.userModel.findOne({ email }).exec()
     }
 
-    async changeUserPassword(email: string, newPassword: string): Promise<void> {
+    public async changeUserPassword(email: string, newPassword: string): Promise<void> {
         await this.userModel.updateOne({ email }, { $set: { password: newPassword } }).exec()
     }
 }

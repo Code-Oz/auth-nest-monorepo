@@ -8,7 +8,7 @@ export class JwtAccessTokenProvider {
         private jwtService: JwtService,
     ) {}
 
-    async provideAccessToken(payload: AccessTokenPayload) {
+    public async provideAccessToken(payload: AccessTokenPayload) {
         return {
           access_token: this.jwtService.sign(payload),
         }

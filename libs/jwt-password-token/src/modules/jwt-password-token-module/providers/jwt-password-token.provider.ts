@@ -8,7 +8,7 @@ export class JwtPasswordTokenProvider {
         private jwtService: JwtService,
     ) {}
 
-    async providePasswordToken(payload: PasswordTokenPayload) {
+    public async providePasswordToken(payload: PasswordTokenPayload) {
         return {
             password_token: this.jwtService.sign(payload),
         }

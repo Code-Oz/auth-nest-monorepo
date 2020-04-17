@@ -105,15 +105,15 @@ TODOS:
 
 - [ ] Check if user is banned
 - [ ] Class validation at mongo level?
-- [ ] Revoir les types de swagger
-- [ ] public et private function class
+- [x] public et private function class
 - [x] Exception filter global default
 - [x] Add hot reload
 - [x] Error handling if user email credential are wrong in .env or forget to allow secure app 
 - [ ] Formater ce README en mode propre
-- [ ] Revoir les devDependencies and dependencie in package.json
 
 - [ ] Create api hello
 - [ ] Implement front
 - [ ] Generate real link for reset password email
 - [ ] Implement Docker
+- [ ] Revoir les devDependencies and dependencie in package.json
+- [ ] Start prod

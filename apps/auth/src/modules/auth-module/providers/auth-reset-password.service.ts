@@ -18,7 +18,7 @@ export class AuthResetPasswordService {
         private jwtPasswordTokenProvider: JwtPasswordTokenProvider,
     ) {}
 
-    async postResetPassword(userEmailDto: UserEmailDto): Promise<MessageResponse> {
+    public async postResetPassword(userEmailDto: UserEmailDto): Promise<MessageResponse> {
         const emailSender = this.configService.get<string>("EMAIL_SENDER")
         const passSender = this.configService.get<string>("PASSWORD_SENDER")
 
