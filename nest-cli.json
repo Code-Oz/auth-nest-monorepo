@@ -1,20 +1,20 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/auth/src",
+  "sourceRoot": "apps/api-auth/src",
   "monorepo": true,
-  "root": "apps/auth",
+  "root": "apps/api-auth",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/auth/tsconfig.app.json"
+    "tsConfigPath": "apps/api-auth/tsconfig.app.json"
   },
   "projects": {
     "auth": {
       "type": "application",
-      "root": "apps/auth",
+      "root": "apps/api-auth",
       "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
+      "sourceRoot": "apps/api-auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
+        "tsConfigPath": "apps/api-auth/tsconfig.app.json"
       }
     },
     "user": {
