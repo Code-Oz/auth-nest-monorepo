@@ -1,45 +1,38 @@
-import { Model } from "mongoose"
 import { Injectable } from "@nestjs/common"
-import { InjectModel } from "@nestjs/mongoose"
 
-import { REFRESH_TOKEN_COLLECTION } from "../types/refresh-collections.types"
 import { RefreshTokenDocument, RefreshTokenCreationDto } from "../schemas/refresh-token.schema"
+
+import { JwtRefreshTokenDatabaseCreation, JwtRefreshTokenDatabaseFind, JwtRefreshTokenDatabaseUpdate } from "./database-layers"
 
 @Injectable()
 export class JwtRefreshTokenService {
     constructor(
-        @InjectModel(REFRESH_TOKEN_COLLECTION) private tokenRefreshModel: Model<RefreshTokenDocument>,
+        private jwtRefreshTokenDatabaseCreation: JwtRefreshTokenDatabaseCreation,
+        private jwtRefreshTokenDatabaseFind: JwtRefreshTokenDatabaseFind,
+        private jwtRefreshTokenDatabaseUpdate: JwtRefreshTokenDatabaseUpdate,
     ) {}
 
     public async saveToken(refreshToken: RefreshTokenCreationDto): Promise<RefreshTokenDocument> {
-        const savedToken = new this.tokenRefreshModel(refreshToken)
-        return await savedToken.save()
+        return await this.jwtRefreshTokenDatabaseCreation.createToken(refreshToken)
     }
 
     public async isTokenAvailable(refreshTokenId: string): Promise<boolean> {
-        const token = await this.findTokenByTokenId(refreshTokenId)
+        const token = await this.jwtRefreshTokenDatabaseFind.findTokenByTokenId(refreshTokenId)
         return !!token && token.isAvailable
     }
 
     public async isTokenExist(email: string): Promise<boolean> {
-        const token = await this.findTokenByEmail(email)
+        const token = await this.jwtRefreshTokenDatabaseFind.findTokenByEmail(email)
         return !!token
     }
 
     // Thanks to this, you have only one connection by user at the same time
     public async makeSingletonConnection(email: string): Promise<void> {
-        await this.tokenRefreshModel.updateMany({ email }, { $set: { isAvailable: false } }).exec()
+        await this.jwtRefreshTokenDatabaseUpdate.updateManyByEmail(email, { isAvailable: false })
     }
 
     public async changeStatusToken(email: string, refreshTokenId: string): Promise<void> {
-        await this.tokenRefreshModel.updateOne({ email, _id: refreshTokenId }, { $set: { isAvailable: false } }).exec()
+        await this.jwtRefreshTokenDatabaseUpdate.updateOneByEmailAndRefreshTokenId(email, refreshTokenId, { isAvailable: false })
     }
 
-    private async findTokenByTokenId(refreshTokenId: string): Promise<RefreshTokenDocument> {
-        return await this.tokenRefreshModel.findOne({ _id: refreshTokenId }).exec()
-    }
-
-    private async findTokenByEmail(email: string): Promise<RefreshTokenDocument> {
-        return await this.tokenRefreshModel.findOne({ email }).exec()
-    }
 }

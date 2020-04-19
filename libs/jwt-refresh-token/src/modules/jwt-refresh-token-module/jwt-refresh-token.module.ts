@@ -10,6 +10,7 @@ import { JwtRefreshTokenService } from "./providers/jwt-refresh-token.service"
 import { JwtRefreshTokenAuthGuard } from "./guards/jwt-access-token.guard"
 import { REFRESH_TOKEN_COLLECTION } from "./types/refresh-collections.types"
 import { RefreshTokenSchema } from "./schemas/refresh-token.schema"
+import { JwtRefreshTokenDatabaseCreation, JwtRefreshTokenDatabaseFind, JwtRefreshTokenDatabaseUpdate } from "./providers/database-layers"
 
 @Module({
     imports: [
@@ -31,6 +32,9 @@ import { RefreshTokenSchema } from "./schemas/refresh-token.schema"
         JwtRefreshTokenService,
         JwtRefreshTokenStrategy,
         JwtRefreshTokenAuthGuard,
+        JwtRefreshTokenDatabaseCreation,
+        JwtRefreshTokenDatabaseFind,
+        JwtRefreshTokenDatabaseUpdate,
     ],
     exports: [
         JwtRefreshTokenProvider,

@@ -114,9 +114,10 @@ If you want to get payload from this, act like other strategy and use `@DecodedT
 - [x] Add hot reload
 - [x] Error handling if user email credential are wrong in .env or forget to allow secure app 
 
-- [ ] Create api hello
+- [ ] Create role systeme
 - [ ] Implement front
 - [ ] Generate real link for reset password email
+- [ ] Create api hello
 - [ ] Implement Docker
 - [ ] Revoir les devDependencies and dependencie in package.json
 - [ ] Start prod
@@ -124,6 +125,6 @@ If you want to get payload from this, act like other strategy and use `@DecodedT
 <!-- Pour la V1 do below>
 <!-- - [ ] Handle mongo db error -->
 <!-- - [ ] Validation document mongo // Note essential since all save are based on DTO class and validate at controller level-->
-<!-- Next feature => create role systeme -->
+
 <!-- Next feature => add path to change roles of user -->
 <!-- [ ] Next feature => create route for user ban (don't forget to check if user is banned in some route) and invalid all refresh token for email user, if you want to do that, need to add role system before ! and add route for ban user in another controller -->
