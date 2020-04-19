@@ -12,7 +12,7 @@ export class UserDatabaseUpdate extends MongoUpdateOperationAbstract<
     UserDocument
 > {
     constructor(
-        @InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>,
+        @InjectModel(USERS_COLLECTION) userModel: Model<UserDocument>,
     ) {
         super(userModel)
     }

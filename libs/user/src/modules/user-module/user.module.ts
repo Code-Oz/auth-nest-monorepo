@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common"
 import { MongooseModule } from "@nestjs/mongoose"
 
 import { getVariableEnvironment, GlobalNestModule } from "@lib/global-nest"
+import { RolesModule } from "@libs/roles"
 
 import { UserService } from "./providers/user.service"
 import { UserCredentialService } from "./providers/user-credential.service"
@@ -12,6 +13,7 @@ import { UserDatabaseCreation, UserDatabaseFind, UserDatabaseUpdate } from "./pr
 @Module({
     imports: [
         GlobalNestModule,
+        RolesModule,
         MongooseModule.forRoot(getVariableEnvironment("MONGO_DB_STRING_CONNECTION")),
         MongooseModule.forFeature([{ name: USERS_COLLECTION, schema: UserSchema }]),
     ],

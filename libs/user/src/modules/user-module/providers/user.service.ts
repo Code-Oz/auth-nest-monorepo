@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 
-import { UserCreationDto, UserDocument } from "../schemas/user.schema"
+import { UserDocument, UserCreationModel } from "../schemas/user.schema"
 import { UserDatabaseCreation, UserDatabaseFind, UserDatabaseUpdate } from "./database-layers"
 
 @Injectable()
@@ -11,7 +11,7 @@ export class UserService {
         private userDatabaseUpdate: UserDatabaseUpdate,
     ) {}
 
-    public async createUser(user: UserCreationDto): Promise<UserDocument> {
+    public async createUser(user: UserCreationModel): Promise<UserDocument> {
         return await this.userDatabaseCreation.createUser(user)
     }
 

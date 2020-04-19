@@ -4,13 +4,15 @@ import { JwtAccessTokenProvider } from "@lib/jwt-access-token"
 import { JwtRefreshTokenProvider } from "@lib/jwt-refresh-token"
 import { JwtRefreshTokenService } from "@lib/jwt-refresh-token/modules/jwt-refresh-token-module/providers/jwt-refresh-token.service"
 import { UserService } from "@lib/user"
+import { RolesGrantedService } from "@libs/roles"
+
+import { AuthRegisterService } from "../auth-register.service"
 
 import { userServiceMock } from "../__mocks__/user-service.mock"
 import { jwtRefreshTokenServiceMock } from "../__mocks__/jwt-refresh-token-service.mock"
 import { jwtAccessTokenProviderMock } from "../__mocks__/jwt-access-token-provider.mock"
 import { jwtRefreshTokenProviderMock } from "../__mocks__/jwt-refresh-token-provider.mock"
-import { ProvidersToken } from "../../types/providers-token.type"
-import { AuthRegisterService } from "../auth-register.service"
+import { rolesGrantedServiceMock } from "../__mocks__/roles-granted-service.mock"
 
 describe("AuthRegister", () => {
   let authRegisterService: AuthRegisterService
@@ -18,6 +20,7 @@ describe("AuthRegister", () => {
   let jwtAccessTokenProvider: JwtAccessTokenProvider
   let jwtRefreshTokenProvider: JwtRefreshTokenProvider
   let jwtRefreshTokenService: JwtRefreshTokenService
+  let rolesGrantedService: RolesGrantedService
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -27,6 +30,7 @@ describe("AuthRegister", () => {
             { provide: JwtRefreshTokenProvider, useValue: { ...jwtRefreshTokenProviderMock } },
             { provide: JwtRefreshTokenService, useValue: { ...jwtRefreshTokenServiceMock } },
             { provide: UserService, useValue: { ...userServiceMock } },
+            { provide: RolesGrantedService, useValue: { ...rolesGrantedServiceMock } },
         ],
       })
       .compile()
@@ -36,6 +40,7 @@ describe("AuthRegister", () => {
     jwtAccessTokenProvider = moduleRef.get<JwtAccessTokenProvider>(JwtAccessTokenProvider)
     jwtRefreshTokenProvider = moduleRef.get<JwtRefreshTokenProvider>(JwtRefreshTokenProvider)
     jwtRefreshTokenService = moduleRef.get<JwtRefreshTokenService>(JwtRefreshTokenService)
+    rolesGrantedService = moduleRef.get<RolesGrantedService>(RolesGrantedService)
   })
 
   describe("postRegister", () => {

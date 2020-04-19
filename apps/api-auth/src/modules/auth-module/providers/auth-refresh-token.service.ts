@@ -13,14 +13,18 @@ export class AuthRefreshTokenService {
     ) {}
 
     public async postAccessToken(refreshTokenPayload: RefreshTokenPayload): Promise<AccessToken> {
-        const { userId, userEmail, refreshTokenId } = refreshTokenPayload
+        const { userId, userEmail, refreshTokenId, userRoles } = refreshTokenPayload
         const isTokenAvailable = await this.jwtRefreshTokenService.isTokenAvailable(refreshTokenId)
 
         if (!isTokenAvailable) {
             throw new TokenNotAvailableException()
         }
 
-        const { access_token } = await this.jwtAccessTokenProvider.provideAccessToken({ userId, userEmail })
+        const { access_token } = await this.jwtAccessTokenProvider.provideAccessToken({
+            userId,
+            userEmail,
+            userRoles,
+        })
 
         return {
             access_token,

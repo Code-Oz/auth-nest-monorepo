@@ -1,21 +1,21 @@
 import { Schema, Document } from "mongoose"
 import { IsEmail, IsNotEmpty, MinLength } from "class-validator"
+import { USER_ROLES } from "@libs/roles/modules/types"
 
 export const UserSchema = new Schema({
     email: String,
     password: String,
+    roles: [ String ],
 }, { versionKey: false })
 
 export interface UserDocument extends Document {
     email: string
     password: string
+    roles: USER_ROLES[]
 }
 
-export class UserCreationDto {
-    @IsEmail()
+export interface UserCreationModel {
     email: string
-
-    @IsNotEmpty()
-    @MinLength(6)
     password: string
+    roles: USER_ROLES[]
 }

@@ -55,10 +55,12 @@ export class AuthLoginService {
             userId: user.id,
             userEmail: user.email,
             refreshTokenId,
+            userRoles: user.roles,
         })
         const accessToken = await this.jwtAccessTokenProvider.provideAccessToken({
             userId: user.id,
             userEmail: user.email,
+            userRoles: user.roles,
         })
 
         await this.jwtRefreshTokenService.saveToken({

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common"
 
 import { UserService } from "@lib/user"
 import { JwtRefreshTokenService } from "@lib/jwt-refresh-token"
+import { RolesGrantedService } from "@libs/roles"
 
 import { UserConnectionDto } from "../validations/user-connection.dto"
 import { UserAlreadyExistException } from "../custom-errors/user-already-exist.exception"
@@ -13,6 +14,7 @@ export class AuthRegisterService {
     constructor(
         private jwtRefreshTokenService: JwtRefreshTokenService,
         private userService: UserService,
+        private rolesGrantedService: RolesGrantedService,
     ) {}
 
     public async postRegister(userConnectionDto: UserConnectionDto): Promise<MessageResponse> {
@@ -24,7 +26,11 @@ export class AuthRegisterService {
             throw new UserAlreadyExistException()
         }
 
-        await this.userService.createUser({ email, password })
+        await this.userService.createUser({
+            email,
+            password,
+            roles: this.rolesGrantedService.grantedBasicUserRole(),
+        })
 
         return {
             message: postRegisterResponseMessage,
