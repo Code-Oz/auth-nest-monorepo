@@ -106,7 +106,9 @@
       "@lib/jwt-password-token/(.*)": "<rootDir>/libs/jwt-password-token/src/$1",
       "@lib/jwt-password-token": "<rootDir>/libs/jwt-password-token/src",
       "@lib/email-factory/(.*)": "<rootDir>/libs/email-factory/src/$1",
-      "@lib/email-factory": "<rootDir>/libs/email-factory/src"
+      "@lib/email-factory": "<rootDir>/libs/email-factory/src",
+      "@libs/roles/(.*)": "<rootDir>/libs/roles/src/$1",
+      "@libs/roles": "<rootDir>/libs/roles/src"
     }
   }
 }

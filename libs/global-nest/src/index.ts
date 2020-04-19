@@ -1,6 +1,6 @@
 export * from "./global-nest.module"
 export * from "./exception-filters"
 export * from "./variable-environement-checker"
-export * from "./customs-errors"
+export * from "./custom-errors"
 export * from "./custom-decorators"
 export * from "./types"

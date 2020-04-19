@@ -70,6 +70,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/email-factory/tsconfig.lib.json"
       }
+    },
+    "roles": {
+      "type": "library",
+      "root": "libs/roles",
+      "entryFile": "index",
+      "sourceRoot": "libs/roles/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/roles/tsconfig.lib.json"
+      }
     }
   }
 }

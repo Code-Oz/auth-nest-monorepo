@@ -7,6 +7,7 @@ import { JwtAccessTokenModule } from "@lib/jwt-access-token"
 import { JwtRefreshTokenModule } from "@lib/jwt-refresh-token"
 import { JwtPasswordTokenModule } from "@lib/jwt-password-token"
 import { EmailFactoryModule } from "@lib/email-factory"
+import { RolesModule } from "@libs/roles"
 
 import { AuthController } from "./controllers/auth.controller"
 import { AuthRefreshTokenService } from "./providers/auth-refresh-token.service"
@@ -24,6 +25,7 @@ import { AuthChangePasswordService } from "./providers/auth-change-password.serv
         JwtRefreshTokenModule,
         JwtPasswordTokenModule,
         EmailFactoryModule,
+        RolesModule,
     ],
     controllers: [ AuthController ],
     providers: [

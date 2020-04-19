@@ -46,6 +46,12 @@
       ],
       "@lib/email-factory/*": [
         "libs/email-factory/src/*"
+      ],
+      "@libs/roles": [
+        "libs/roles/src"
+      ],
+      "@libs/roles/*": [
+        "libs/roles/src/*"
       ]
     }
   },
