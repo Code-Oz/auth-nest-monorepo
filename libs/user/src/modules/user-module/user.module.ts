@@ -7,6 +7,7 @@ import { UserService } from "./providers/user.service"
 import { UserCredentialService } from "./providers/user-credential.service"
 import { UserSchema } from "./schemas/user.schema"
 import { USERS_COLLECTION } from "./types/collection.types"
+import { UserDatabaseCreation, UserDatabaseFind, UserDatabaseUpdate } from "./providers/database-layers"
 
 @Module({
     imports: [
@@ -17,6 +18,9 @@ import { USERS_COLLECTION } from "./types/collection.types"
     providers: [
         UserService,
         UserCredentialService,
+        UserDatabaseCreation,
+        UserDatabaseFind,
+        UserDatabaseUpdate,
     ],
     exports: [
         UserService,

@@ -1,20 +1,18 @@
-import { Model } from "mongoose"
-
 import { Injectable } from "@nestjs/common"
-import { InjectModel } from "@nestjs/mongoose"
 
 import { UserCreationDto, UserDocument } from "../schemas/user.schema"
-import { USERS_COLLECTION } from "../types/collection.types"
+import { UserDatabaseCreation, UserDatabaseFind, UserDatabaseUpdate } from "./database-layers"
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectModel(USERS_COLLECTION) private userModel: Model<UserDocument>,
+        private userDatabaseCreation: UserDatabaseCreation,
+        private userDatabaseFind: UserDatabaseFind,
+        private userDatabaseUpdate: UserDatabaseUpdate,
     ) {}
 
     public async createUser(user: UserCreationDto): Promise<UserDocument> {
-        const createdUser = new this.userModel(user)
-        return await createdUser.save()
+        return await this.userDatabaseCreation.createUser(user)
     }
 
     public async isExistUser(email: string): Promise<boolean> {
@@ -23,10 +21,10 @@ export class UserService {
     }
 
     public async findUserByEmail(email: string): Promise<UserDocument> {
-        return await this.userModel.findOne({ email }).exec()
+        return await this.userDatabaseFind.findUserByEmail(email)
     }
 
     public async changeUserPassword(email: string, newPassword: string): Promise<void> {
-        await this.userModel.updateOne({ email }, { $set: { password: newPassword } }).exec()
+        await this.userDatabaseUpdate.updateOneByEmail(email, { password: newPassword })
     }
 }
