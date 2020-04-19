@@ -113,8 +113,8 @@ If you want to get payload from this, act like other strategy and use `@DecodedT
 - [x] Exception filter global default
 - [x] Add hot reload
 - [x] Error handling if user email credential are wrong in .env or forget to allow secure app 
+- [x] Create role systeme
 
-- [ ] Create role systeme
 - [ ] Implement front
 - [ ] Generate real link for reset password email
 - [ ] Create api hello

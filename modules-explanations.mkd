@@ -44,7 +44,11 @@ Manage user collection actions.
 
 ### UserService
 
-Layer between exterior module and database.
+Layer between exterior module and database. 
+
+Manage business logic linked to database action.
+
+### Database-Layer
 
 Manage action linked to user collection.
 
@@ -69,6 +73,10 @@ Manage refresh token collection actions & refresh-token actions.
 ### JwtRefreshTokenService
 
 Layer between exterior module and database.
+
+Manage business logic linked to database action.
+
+### Database-Layer
 
 Manage action linked to refresh-token collection.
 
@@ -147,4 +155,23 @@ Manage email creation & sending email.
 
 Create email factory and send email to target.
 
+------------------------------------------------
 
+
+**Lib-Roles**
+
+Manage roles in the application.
+
+Contains RolesGuard.
+
+### RolesService
+
+Manage business logic in order to check if roles from guard and user roles matches
+
+### RolesGrantedService
+
+Granted role to user.
+
+_note:_ We grant "BASIC" user role when user register
+
+// In futur release: New API will be created to grant roles for any user
